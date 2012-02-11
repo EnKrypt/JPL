@@ -12,8 +12,13 @@ public class Lisp{
 	static Matcher now;
 	static Pattern quo;
 	static Matcher nowa;
+	static Pattern elisp;
+	static Matcher enow;
+	static Pattern equo;
+	static Matcher enowa;
 	static Map var=new HashMap();
-	static String result;	
+	static String result;
+	static String eresult;	
 
 	public static void main(String args[])throws IOException{
 		BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
@@ -44,9 +49,6 @@ public class Lisp{
 	}
 	public static String eval(String arg[]){
 		arg=requote(arg);
-		for (int d=0;d<arg.length;d++){
-			System.out.println(arg[d]);
-		}
 		if (arg[0].equalsIgnoreCase("add")){
 			int cres=0;
 			for (int i=1;i<arg.length;i++){
@@ -85,9 +87,108 @@ public class Lisp{
 		else if (arg[0].equalsIgnoreCase("eval")){
 			String cres="";
 			for (int i=1;i<arg.length;i++){
-				cres+=dot(arg[i]);
+				cres+=evaldot(arg[i])+" ";
 			}
+			String[] cfn=cres.split(" ");
+			return cfn[cfn.length-1];
+		}
+		else if (arg[0].equalsIgnoreCase("slice")){
+			String cres="";
+			cres=arg[1].substring(Integer.parseInt(arg[2]),Integer.parseInt(arg[3])+1);
 			return cres;
+		}
+		else if (arg[0].equalsIgnoreCase("eq")){
+			String cres="";
+			String eqchk=arg[1];
+			int flag=1;
+			for (int i=1;i<arg.length;i++){
+				if (!arg[i].equalsIgnoreCase(eqchk)){
+					flag=0;
+				}
+			}
+			return flag+"";
+		}
+		else if (arg[0].equalsIgnoreCase("gt")){
+			String cres="";
+			int flag=1;
+			for (int i=2;i<arg.length;i++){
+				if (Math.max(Integer.parseInt(arg[i-1]),Integer.parseInt(arg[i]))!=Integer.parseInt(arg[i-1])){
+					flag=0;
+				}
+			}
+			return flag+"";
+		}
+		else if (arg[0].equalsIgnoreCase("lt")){
+			String cres="";
+			int flag=1;
+			for (int i=2;i<arg.length;i++){
+				if (Math.min(Integer.parseInt(arg[i-1]),Integer.parseInt(arg[i]))!=Integer.parseInt(arg[i-1])){
+					flag=0;
+				}
+			}
+			return flag+"";
+		}
+		else if (arg[0].equalsIgnoreCase("and")){
+			String cres="";
+			int flag=1;
+			for (int i=1;i<arg.length;i++){
+				if (arg[i].equalsIgnoreCase("0")){
+					flag=0;
+				}
+			}
+			return flag+"";
+		}
+		else if (arg[0].equalsIgnoreCase("or")){
+			String cres="";
+			int flag=1;
+			for (int i=1;i<arg.length;i++){
+				if (!arg[i].equalsIgnoreCase("0")){
+					flag=0;
+				}
+			}
+			return flag+"";
+		}
+		else if (arg[0].equalsIgnoreCase("not")){
+			String cres="";
+			if (arg.length==2&&arg[1].equalsIgnoreCase("0")){
+				return "1";
+			}
+			else{
+				return "0";
+			}
+		}
+		else if (arg[0].equalsIgnoreCase("print")){
+			String cres="";
+			for (int i=1;i<arg.length;i++){
+				cres+=arg[i]+" ";
+			}
+			System.out.println(cres);
+			return "";
+		}
+		else if (arg[0].equalsIgnoreCase("read")){
+			String cres="";
+			for (int i=1;i<arg.length;i++){
+				cres+=arg[i]+" ";
+			}
+			System.out.print(cres);
+			try{
+				BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+				cres=b.readLine();
+			}
+			catch(Exception e) {}
+			return cres;
+		}
+		else if (arg[0].equalsIgnoreCase("pass")){
+			String cres="";
+			return "";
+		}
+		else if (arg[0].equalsIgnoreCase("if")){
+			if (arg[1].equalsIgnoreCase("0")){
+				return evaldot(arg[3]);
+			}
+			else{
+				return evaldot(arg[2]);
+			}
 		}
 		else if (arg[0].equalsIgnoreCase("var")&&arg.length==3){
 			var.put(arg[1],arg[2]);
@@ -127,5 +228,23 @@ public class Lisp{
 			return unquote(result);
   		}
 		return ar;
+	}
+	public static String evaldot(String code){
+		equo=Pattern.compile("'[^'\"]*\"");
+		enowa=equo.matcher(code);
+		code=unquote(code);
+		elisp=Pattern.compile("\\([^()]*\\)");
+		enow=elisp.matcher(code);
+		while (enow.find()){
+			String m=enow.group(0);
+			m=m.replace("(","");
+			m=m.replace(")","");
+			String[] arg=m.split(" ");
+			String res=eval(arg);
+			eresult = enow.replaceFirst(res);
+			return evaldot(eresult);
+		}
+		String[] cfin=code.split(" ");
+		return cfin[cfin.length-1];
 	}
 }

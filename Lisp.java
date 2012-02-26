@@ -195,7 +195,13 @@ public class Lisp{
 			return "";
 		}
 		else if (arg[0].equalsIgnoreCase("var")&&arg.length==2){
-			String setvar=var.get(arg[1]).toString();
+			String setvar="";
+			try{
+				setvar=var.get(arg[1]).toString();
+			}
+			catch(NullPointerException npe){
+				setvar="0";
+			}
 			return ""+setvar;
 		}
 		else{

@@ -1,6 +1,21 @@
-/*
-  @author EnKrypt
-*/
+//   **************************************************************************
+//   *                                                                        *
+//   *  This program is free software: you can redistribute it and/or modify  *
+//   *  it under the terms of the GNU General Public License as published by  *
+//   *  the Free Software Foundation, either version 3 of the License, or     *
+//   * (at your option) any later version.                                    *
+//   *                                                                        *
+//   *  This program is distributed in the hope that it will be useful,       *  
+//   *  but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+//   *  MERCHANTABILITY || FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+//   *  GNU General Public License for more details.                          *
+//   *                                                                        *
+//   *  You should have received a copy of the GNU General Public License     *
+//   *  along with this program.  If not, see <http://www.gnu.org/licenses/>. *
+//   *                                                                        *
+//   *         (C) Arvind Kumar 2011 .                                        *
+//   *         (C) James McClain 2011 .                                       *
+//   **************************************************************************
 
 import java.io.*;
 import java.util.*;
@@ -30,6 +45,10 @@ public class Lisp{
 		}
 	}
 	public static String dot(String code){
+        Pattern lisp;
+        Matcher now;
+        Pattern quo;
+        Matcher nowa;
 		quo=Pattern.compile("'[^'\"]*\"");
 		nowa=quo.matcher(code);
 		code=unquote(code);
@@ -39,16 +58,22 @@ public class Lisp{
 			String m=now.group(0);
 			m=m.replace("(","");
 			m=m.replace(")","");
+            m=m.replaceAll(" +"," ");
 			String[] arg=m.split(" ");
 			String res=eval(arg);
 			result = now.replaceFirst(res);
 			return dot(result);
 		}
 		String[] cfin=code.split(" ");
-		return cfin[cfin.length-1];
+        if (cfin.length != 0)
+            return cfin[cfin.length-1];
+        return "";
 	}
 	public static String eval(String arg[]){
 		arg=requote(arg);
+                 // for(int i=0;i<arg.length;++i){
+                 //     System.out.println(i+" : "+arg[i]);
+                 // }
 		if (arg[0].equalsIgnoreCase("add")){
 			int cres=0;
 			for (int i=1;i<arg.length;i++){
@@ -71,9 +96,9 @@ public class Lisp{
 			return ""+cres;
 		}
 		else if (arg[0].equalsIgnoreCase("div")){
-			int cres=Integer.parseInt(arg[1]);
+			double cres=Double.parseDouble(arg[1]);
 			for (int i=2;i<arg.length;i++){
-				cres/=Integer.parseInt(arg[i]);
+				cres/=Double.parseDouble(arg[i]);
 			}
 			return ""+cres;
 		}
@@ -86,11 +111,10 @@ public class Lisp{
 		}
 		else if (arg[0].equalsIgnoreCase("eval")){
 			String cres="";
-			for (int i=1;i<arg.length;i++){
-				cres+=evaldot(arg[i])+" ";
-			}
-			String[] cfn=cres.split(" ");
-			return cfn[cfn.length-1];
+            arg[0] = "";
+            cres = combine(arg," ");
+            cres=dot(cres);
+            return cres;
 		}
 		else if (arg[0].equalsIgnoreCase("slice")){
 			String cres="";
@@ -112,7 +136,7 @@ public class Lisp{
 			String cres="";
 			int flag=1;
 			for (int i=2;i<arg.length;i++){
-				if (Math.max(Integer.parseInt(arg[i-1]),Integer.parseInt(arg[i]))!=Integer.parseInt(arg[i-1])){
+				if ((Math.max(Integer.parseInt(arg[i-1]),Integer.parseInt(arg[i]))!=Integer.parseInt(arg[i-1]))||Integer.parseInt(arg[i])==Integer.parseInt(arg[i-1])){
 					flag=0;
 				}
 			}
@@ -122,7 +146,7 @@ public class Lisp{
 			String cres="";
 			int flag=1;
 			for (int i=2;i<arg.length;i++){
-				if (Math.min(Integer.parseInt(arg[i-1]),Integer.parseInt(arg[i]))!=Integer.parseInt(arg[i-1])){
+				if ((Math.min(Integer.parseInt(arg[i-1]),Integer.parseInt(arg[i]))!=Integer.parseInt(arg[i-1]))||Integer.parseInt(arg[i])==Integer.parseInt(arg[i-1])){
 					flag=0;
 				}
 			}
@@ -140,17 +164,17 @@ public class Lisp{
 		}
 		else if (arg[0].equalsIgnoreCase("or")){
 			String cres="";
-			int flag=1;
+			int flag=0;
 			for (int i=1;i<arg.length;i++){
 				if (!arg[i].equalsIgnoreCase("0")){
-					flag=0;
+					flag=1;
 				}
 			}
 			return flag+"";
 		}
 		else if (arg[0].equalsIgnoreCase("not")){
 			String cres="";
-			if (arg.length==2&&arg[1].equalsIgnoreCase("0")){
+			if (arg[1].equalsIgnoreCase("0")){
 				return "1";
 			}
 			else{
@@ -165,17 +189,26 @@ public class Lisp{
 			System.out.println(cres);
 			return "";
 		}
-		else if (arg[0].equalsIgnoreCase("read")){
+		else if (arg[0].equalsIgnoreCase("read")&&arg.length==2){
 			String cres="";
 			for (int i=1;i<arg.length;i++){
 				cres+=arg[i]+" ";
 			}
-			System.out.print(cres);
-			try{
-				BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-				cres=b.readLine();
+			if (cres.equals(" ")){
+				try{
+					BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+					cres=b.readLine();
+				}
+				catch(Exception e) {}
 			}
-			catch(Exception e) {}
+			else{
+				try{
+					System.out.print(cres);
+					BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+					cres=b.readLine();
+				}
+				catch(Exception e) {}
+			}
 			return cres;
 		}
 		else if (arg[0].equalsIgnoreCase("pass")){
@@ -184,10 +217,10 @@ public class Lisp{
 		}
 		else if (arg[0].equalsIgnoreCase("if")){
 			if (arg[1].equalsIgnoreCase("0")){
-				return evaldot(arg[3]);
+				return arg[3];
 			}
 			else{
-				return evaldot(arg[2]);
+				return arg[2];
 			}
 		}
 		else if (arg[0].equalsIgnoreCase("var")&&arg.length==3){
@@ -204,8 +237,41 @@ public class Lisp{
 			}
 			return ""+setvar;
 		}
+        else if (arg[0].equalsIgnoreCase("lambda")){
+            return "runlambda '"+arg[1]+"\" '"+arg[2]+"\"";
+        }
+        else if (arg[0].equalsIgnoreCase("runlambda")){
+            arg[1] = arg[1].replaceFirst("^\\(","");
+            arg[1] = arg[1].replaceFirst("\\)$","");
+            arg[1] = arg[1].replaceAll(" +"," ");
+            String[] lambdaArg = arg[1].split(" ");
+            String to_eval;
+            to_eval = arg[2];
+            to_eval = to_eval.replaceAll("\\("," ( ");
+            to_eval = to_eval.replaceAll("\\)"," ) ");
+            to_eval = to_eval.replaceAll("'"," ' ");
+            to_eval = to_eval.replaceAll("\""," \" ");
+            int i;
+            int q;
+            int argNum = 3;
+            String[] to_eval_array;
+            for(i=0,q=0; i < lambdaArg.length;++i,++argNum){
+                to_eval_array = to_eval.split(" ");
+                for(q=0;q < to_eval_array.length;++q){
+                    if(to_eval_array[q].equals(lambdaArg[i])) {
+                        to_eval_array[q] = arg[argNum];
+                    }
+                }
+                to_eval = combine(to_eval_array," ");
+            }
+            to_eval = to_eval.replaceAll(" \\( ","(");
+            to_eval = to_eval.replaceAll(" \\) ",")");
+            to_eval = to_eval.replaceAll(" ' ","'");
+            to_eval = to_eval.replaceAll(" \" ","\"");
+            return "(eval '"+to_eval+"\")";
+        }
 		else{
-			return "";
+            return "";
 		}
 	}
 	public static String[] requote(String[] ar) {
@@ -221,36 +287,32 @@ public class Lisp{
   		return ar;
 	}
 	public static String unquote(String ar) {
-		quo=Pattern.compile("'[^'\"]*\"");
-		nowa=quo.matcher(ar);
-  		while(nowa.find()) {
-			String m=nowa.group(0);
-    			m = m.replaceAll("^.","---");
-    			m = m.replaceAll(".$","~~~");
-    			m = m.replaceAll("\\(","{");
-    			m = m.replaceAll("\\)","}");
-    			m = m.replaceAll(" ","<>");
-    			String result = nowa.replaceFirst(m);
-			return unquote(result);
-  		}
-		return ar;
+            Pattern lisp;
+            Matcher now;
+            Pattern quo;
+            Matcher nowa;
+            quo=Pattern.compile("'[^'\"]*\"");
+            nowa=quo.matcher(ar);
+            while(nowa.find()) {
+                String m=nowa.group(0);
+                m = m.replaceAll("^.","---");
+                m = m.replaceAll(".$","~~~");
+                m = m.replaceAll("\\(","{");
+                m = m.replaceAll("\\)","}");
+                m = m.replaceAll(" ","<>");
+                String result = nowa.replaceFirst(m);
+                return unquote(result);
+            }
+            return ar;
 	}
-	public static String evaldot(String code){
-		equo=Pattern.compile("'[^'\"]*\"");
-		enowa=equo.matcher(code);
-		code=unquote(code);
-		elisp=Pattern.compile("\\([^()]*\\)");
-		enow=elisp.matcher(code);
-		while (enow.find()){
-			String m=enow.group(0);
-			m=m.replace("(","");
-			m=m.replace(")","");
-			String[] arg=m.split(" ");
-			String res=eval(arg);
-			eresult = enow.replaceFirst(res);
-			return evaldot(eresult);
-		}
-		String[] cfin=code.split(" ");
-		return cfin[cfin.length-1];
-	}
+    public static String combine(String[] s, String glue) {
+        int k=s.length;
+        if (k==0)
+            return null;
+        StringBuilder out=new StringBuilder();
+        out.append(s[0]);
+        for (int x=1;x<k;++x)
+            out.append(glue).append(s[x]);
+        return out.toString();
+    }
 }

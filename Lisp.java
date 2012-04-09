@@ -20,6 +20,7 @@
 import java.io.*;
 import java.util.*;
 import java.util.regex.*;
+import java.net.*;
 
 public class Lisp{
 	
@@ -32,6 +33,7 @@ public class Lisp{
 	static Pattern equo;
 	static Matcher enowa;
 	static Map var=new HashMap();
+	static Map mkdev=new HashMap();
 	static String result;
 	static String eresult;	
 
@@ -211,6 +213,23 @@ public class Lisp{
 			}
 			return cres;
 		}
+		else if (arg[0].equalsIgnoreCase("read-url")){
+			String lin="",cres="";
+			try{
+				URL url=new URL(arg[1]);
+				BufferedReader read=new BufferedReader(new InputStreamReader(url.openStream()));
+				while ((lin=read.readLine())!=null){
+					cres+=lin+" ";
+				}
+				read.close();
+			}
+			catch(Exception e){ e.printStackTrace(); }
+			return "'"+cres+"\"";
+		}
+		else if (arg[0].equalsIgnoreCase("mkdev")&&arg.length==3){
+			mkdev.put(arg[1],arg[2]);
+			return "";
+		}
 		else if (arg[0].equalsIgnoreCase("pass")){
 			String cres="";
 			return "";
@@ -271,7 +290,18 @@ public class Lisp{
             return "(eval '"+to_eval+"\")";
         }
 		else{
-            return "";
+			String devi="";
+			String param="";
+			for (int i=1;i<arg.length;i++){
+				param+=" "+arg[i];
+			}
+			try{
+				devi=mkdev.get(arg[0]).toString();
+			}
+			catch(NullPointerException npe){
+				devi="";
+			}
+            return "("+devi+param+")";
 		}
 	}
 	public static String[] requote(String[] ar) {

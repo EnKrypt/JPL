@@ -138,7 +138,7 @@ public class Lisp{
 			String cres="";
 			int flag=1;
 			for (int i=2;i<arg.length;i++){
-				if ((Math.max(Integer.parseInt(arg[i-1]),Integer.parseInt(arg[i]))!=Integer.parseInt(arg[i-1]))||Integer.parseInt(arg[i])==Integer.parseInt(arg[i-1])){
+				if ((Math.max(Double.parseDouble(arg[i-1]),Double.parseDouble(arg[i]))!=Double.parseDouble(arg[i-1]))||Double.parseDouble(arg[i])==Double.parseDouble(arg[i-1])){
 					flag=0;
 				}
 			}
@@ -148,11 +148,14 @@ public class Lisp{
 			String cres="";
 			int flag=1;
 			for (int i=2;i<arg.length;i++){
-				if ((Math.min(Integer.parseInt(arg[i-1]),Integer.parseInt(arg[i]))!=Integer.parseInt(arg[i-1]))||Integer.parseInt(arg[i])==Integer.parseInt(arg[i-1])){
+				if ((Math.min(Double.parseDouble(arg[i-1]),Double.parseDouble(arg[i]))!=Double.parseDouble(arg[i-1]))||Double.parseDouble(arg[i])==Double.parseDouble(arg[i-1])){
 					flag=0;
 				}
 			}
 			return flag+"";
+		}
+		else if (arg[0].equalsIgnoreCase("strlen")){
+			return ""+arg[1].length();
 		}
 		else if (arg[0].equalsIgnoreCase("and")){
 			String cres="";

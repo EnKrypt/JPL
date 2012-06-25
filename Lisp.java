@@ -214,7 +214,16 @@ public class Lisp{
 				}
 				catch(Exception e) {}
 			}
-			return cres;
+			return "'"+cres+"\"";
+		}
+		else if (arg[0].equalsIgnoreCase("read")&&arg.length==1){
+			String cres="";
+			try{
+				cres=in.readLine();
+				cres=cres.substring(cres.lastIndexOf(":")+1);
+			}
+			catch(Exception e) {}
+			return "'"+cres+"\"";
 		}
 		else if (arg[0].equalsIgnoreCase("read-url")){
 			String lin="",cres="";

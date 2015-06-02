@@ -1,3 +1,4 @@
 javac Lisp.java
-java Lisp
+javac InterpreterHook.java
+java InterpreterHook
 cmd.exe /k

@@ -37,16 +37,7 @@ public class Lisp{
 	static String result;
 	static String eresult;	
 
-	public static void main(String args[])throws IOException{
-		BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-		String inp="";
-		while(!inp.equalsIgnoreCase("exit")){
-			System.out.print("LISP> ");
-			inp=b.readLine();
-			System.out.println("Result: "+dot(inp));
-		}
-	}
-	public static String dot(String code){
+	public static String parse(String code){
         Pattern lisp;
         Matcher now;
         Pattern quo;
@@ -64,7 +55,7 @@ public class Lisp{
 			String[] arg=m.split(" ");
 			String res=eval(arg);
 			result = now.replaceFirst(res);
-			return dot(result);
+			return parse(result);
 		}
 		String[] cfin=code.split(" ");
         if (cfin.length != 0)
@@ -115,7 +106,7 @@ public class Lisp{
 			String cres="";
             arg[0] = "";
             cres = combine(arg," ");
-            cres=dot(cres);
+            cres=parse(cres);
             return cres;
 		}
 		else if (arg[0].equalsIgnoreCase("slice")){
@@ -219,7 +210,8 @@ public class Lisp{
 		else if (arg[0].equalsIgnoreCase("read")&&arg.length==1){
 			String cres="";
 			try{
-				cres=in.readLine();
+				BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+				cres=b.readLine();
 				cres=cres.substring(cres.lastIndexOf(":")+1);
 			}
 			catch(Exception e) {}

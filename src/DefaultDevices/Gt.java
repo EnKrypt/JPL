@@ -17,11 +17,15 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class Cat extends Device{
+import src.*;
+
+public class Gt extends Device{
 	
-	static String name="cat";
+	static String name="gt";
 	
 	public String getname(){
 		return this.name;
@@ -29,9 +33,12 @@ public class Cat extends Device{
 	
 	public String exec(String arg[], Map var, Map mkdev){
 		String cres="";
-		for (int i=1;i<arg.length;i++){
-			cres+=arg[i];
+		int flag=1;
+		for (int i=2;i<arg.length;i++){
+			if ((Math.max(Double.parseDouble(arg[i-1]),Double.parseDouble(arg[i]))!=Double.parseDouble(arg[i-1]))||Double.parseDouble(arg[i])==Double.parseDouble(arg[i-1])){
+				flag=0;
+			}
 		}
-		return cres;
+		return flag+"";
 	}
 }

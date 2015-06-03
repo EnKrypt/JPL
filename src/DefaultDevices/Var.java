@@ -17,24 +17,35 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class Gt extends Device{
+import src.*;
+
+public class Var extends Device{
 	
-	static String name="gt";
+	static String name="var";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		String cres="";
-		int flag=1;
-		for (int i=2;i<arg.length;i++){
-			if ((Math.max(Double.parseDouble(arg[i-1]),Double.parseDouble(arg[i]))!=Double.parseDouble(arg[i-1]))||Double.parseDouble(arg[i])==Double.parseDouble(arg[i-1])){
-				flag=0;
-			}
+		if (arg.length==3){
+			var.put(arg[1],arg[2]);
+			return "";
 		}
-		return flag+"";
+		else if (arg.length==2){
+			String setvar="";
+			try{
+				setvar=var.get(arg[1]).toString();
+			}
+			catch(NullPointerException npe){
+				setvar="0";
+			}
+			return ""+setvar;
+		}
+		return "";
 	}
 }

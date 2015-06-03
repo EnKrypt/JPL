@@ -17,50 +17,25 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-import java.io.*;
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class Read extends Device{
+import src.*;
+
+public class Mul extends Device{
 	
-	static String name="read";
+	static String name="mul";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		if (arg.length==2){
-			String cres="";
-			for (int i=1;i<arg.length;i++){
-				cres+=arg[i]+" ";
-			}
-			if (cres.equals(" ")){
-				try{
-					BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-					cres=b.readLine();
-				}
-				catch(Exception e) {}
-			}
-			else{
-				try{
-					System.out.print(cres);
-					BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-					cres=b.readLine();
-				}
-				catch(Exception e) {}
-			}
-			return "'"+cres+"\"";
+		double cres=Double.parseDouble(arg[1]);;
+		for (int i=2;i<arg.length;i++){
+			cres*=Double.parseDouble(arg[i]);
 		}
-		else if (arg.length==1){
-			String cres="";
-			try{
-				BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-				cres=b.readLine();
-				cres=cres.substring(cres.lastIndexOf(":")+1);
-			}
-			catch(Exception e) {}
-			return "'"+cres+"\"";
-		}
-		return "";
+		return ""+cres;
 	}
 }

@@ -17,21 +17,29 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class Div extends Device{
+import src.*;
+
+public class Eq extends Device{
 	
-	static String name="div";
+	static String name="eq";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		double cres=Double.parseDouble(arg[1]);
-		for (int i=2;i<arg.length;i++){
-			cres/=Double.parseDouble(arg[i]);
+		String cres="";
+		String eqchk=arg[1];
+		int flag=1;
+		for (int i=1;i<arg.length;i++){
+			if (!arg[i].equalsIgnoreCase(eqchk)){
+				flag=0;
+			}
 		}
-		return ""+cres;
+		return flag+"";
 	}
 }

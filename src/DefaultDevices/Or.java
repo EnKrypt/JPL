@@ -17,11 +17,15 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class Slice extends Device{
+import src.*;
+
+public class Or extends Device{
 	
-	static String name="slice";
+	static String name="or";
 	
 	public String getname(){
 		return this.name;
@@ -29,7 +33,12 @@ public class Slice extends Device{
 	
 	public String exec(String arg[], Map var, Map mkdev){
 		String cres="";
-		cres=arg[1].substring(Integer.parseInt(arg[2]),Integer.parseInt(arg[3])+1);
-		return cres;
+		int flag=0;
+		for (int i=1;i<arg.length;i++){
+			if ((!arg[i].equalsIgnoreCase("0"))&&(!arg[i].equalsIgnoreCase("0.0"))){
+				flag=1;
+			}
+		}
+		return flag+"";
 	}
 }

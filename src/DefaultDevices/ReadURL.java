@@ -17,24 +17,33 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
+import java.io.*;
+import java.net.*;
 import java.util.*;
 
-public class And extends Device{
+import src.*;
+
+public class ReadURL extends Device{
 	
-	static String name="and";
+	static String name="read-url";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		String cres="";
-		int flag=1;
-		for (int i=1;i<arg.length;i++){
-			if (arg[i].equalsIgnoreCase("0")||arg[i].equalsIgnoreCase("0.0")){
-				flag=0;
+		String lin="",cres="";
+		try{
+			URL url=new URL(arg[1]);
+			BufferedReader read=new BufferedReader(new InputStreamReader(url.openStream()));
+			while ((lin=read.readLine())!=null){
+				cres+=lin+" ";
 			}
+			read.close();
 		}
-		return flag+"";
+		catch(Exception e){ e.printStackTrace(); }
+		return "'"+cres+"\"";
 	}
 }

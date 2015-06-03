@@ -17,44 +17,54 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
+import java.io.*;
 import java.util.*;
 
-public class Runlambda extends Device{
+import src.*;
+
+public class Read extends Device{
 	
-	static String name="runlambda";
+	static String name="read";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		arg[1] = arg[1].replaceFirst("^\\(","");
-		arg[1] = arg[1].replaceFirst("\\)$","");
-		arg[1] = arg[1].replaceAll(" +"," ");
-		String[] lambdaArg = arg[1].split(" ");
-		String to_eval;
-		to_eval = arg[2];
-		to_eval = to_eval.replaceAll("\\("," ( ");
-		to_eval = to_eval.replaceAll("\\)"," ) ");
-		to_eval = to_eval.replaceAll("'"," ' ");
-		to_eval = to_eval.replaceAll("\""," \" ");
-		int i;
-		int q;
-		int argNum = 3;
-		String[] to_eval_array;
-		for(i=0,q=0; i < lambdaArg.length;++i,++argNum){
-			to_eval_array = to_eval.split(" ");
-			for(q=0;q < to_eval_array.length;++q){
-				if(to_eval_array[q].equals(lambdaArg[i])) {
-					to_eval_array[q] = arg[argNum];
-				}
+		if (arg.length==2){
+			String cres="";
+			for (int i=1;i<arg.length;i++){
+				cres+=arg[i]+" ";
 			}
-			to_eval = Lisp.combine(to_eval_array," ");
+			if (cres.equals(" ")){
+				try{
+					BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+					cres=b.readLine();
+				}
+				catch(Exception e) {}
+			}
+			else{
+				try{
+					System.out.print(cres);
+					BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+					cres=b.readLine();
+				}
+				catch(Exception e) {}
+			}
+			return "'"+cres+"\"";
 		}
-		to_eval = to_eval.replaceAll(" \\( ","(");
-		to_eval = to_eval.replaceAll(" \\) ",")");
-		to_eval = to_eval.replaceAll(" ' ","'");
-		to_eval = to_eval.replaceAll(" \" ","\"");
-		return "(eval '"+to_eval+"\")";
+		else if (arg.length==1){
+			String cres="";
+			try{
+				BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+				cres=b.readLine();
+				cres=cres.substring(cres.lastIndexOf(":")+1);
+			}
+			catch(Exception e) {}
+			return "'"+cres+"\"";
+		}
+		return "";
 	}
 }

@@ -17,17 +17,31 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
+import java.io.*;
 import java.util.*;
 
-public class Strlen extends Device{
+import src.*;
+
+public class Include extends Device{
 	
-	static String name="strlen";
+	static String name="include";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		return ""+arg[1].length();
+		String lin="",cres="";
+		try{
+			BufferedReader read=new BufferedReader(new FileReader(arg[1]));
+			while ((lin=read.readLine())!=null){
+				cres+=lin+" ";
+			}
+			read.close();
+		}
+		catch(Exception e){ e.printStackTrace(); }
+		return "(eval '"+cres+"\")";
 	}
 }

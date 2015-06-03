@@ -19,6 +19,8 @@
 
 import java.io.*;
 
+import src.*;
+
 class InterpreterHook{ //Acts as an interpreter via the console. Will run directly through the command line.
 	public static void main(String args[])throws IOException{
 		BufferedReader b=new BufferedReader(new InputStreamReader(System.in));

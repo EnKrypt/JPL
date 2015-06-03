@@ -17,31 +17,25 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class Var extends Device{
+import src.*;
+
+public class Cat extends Device{
 	
-	static String name="var";
+	static String name="cat";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		if (arg.length==3){
-			var.put(arg[1],arg[2]);
-			return "";
+		String cres="";
+		for (int i=1;i<arg.length;i++){
+			cres+=arg[i];
 		}
-		else if (arg.length==2){
-			String setvar="";
-			try{
-				setvar=var.get(arg[1]).toString();
-			}
-			catch(NullPointerException npe){
-				setvar="0";
-			}
-			return ""+setvar;
-		}
-		return "";
+		return cres;
 	}
 }

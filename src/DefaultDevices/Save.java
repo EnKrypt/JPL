@@ -17,14 +17,48 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
+import java.io.*;
 import java.util.*;
 
-public abstract class Device{
+import src.*;
+
+public class Save extends Device{
 	
-	static boolean isDevice=true;
-	static boolean isDefaultDevice=true;
+	static String name="save";
 	
-	public abstract String getname();
+	public String getname(){
+		return this.name;
+	}
 	
-	public abstract String exec(String arg[], Map var, Map mkdev);
+	public String exec(String arg[], Map var, Map mkdev){
+		String lin="",cres="";
+		try{
+			File fil=new File(arg[1]);
+			if (!fil.exists()){
+				fil.createNewFile();
+			}
+			BufferedWriter read=new BufferedWriter(new FileWriter(arg[1]));
+			Set cvar = var.keySet();
+			Set cmkdev = mkdev.keySet();
+			Iterator itrv = cvar.iterator();
+			Iterator itrm = cmkdev.iterator();
+			while (itrv.hasNext()){
+				String nex=itrv.next().toString();
+				read.write("(var "+nex+" '"+var.get(nex)+"\")");
+				read.newLine();
+				read.flush();
+			}
+			while (itrm.hasNext()){
+				String nex=itrm.next().toString();
+				read.write("(mkdev "+nex+" '"+mkdev.get(nex)+"\")");
+				read.newLine();
+				read.flush();
+			}
+			read.close();
+		}
+		catch(Exception e){ e.printStackTrace(); }
+		return "(eval '"+cres+"\")";
+	}
 }

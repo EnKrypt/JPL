@@ -17,23 +17,18 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src;
+
 import java.util.*;
 
-public class Not extends Device{
+import src.DefaultDevices.*;
+
+public abstract class Device{
 	
-	static String name="not";
+	static boolean isDevice=true;
+	static boolean isDefaultDevice=true;
 	
-	public String getname(){
-		return this.name;
-	}
+	public abstract String getname();
 	
-	public String exec(String arg[], Map var, Map mkdev){
-		String cres="";
-		if (arg[1].equalsIgnoreCase("0")||arg[1].equalsIgnoreCase("0.0")){
-			return "1";
-		}
-		else{
-			return "0";
-		}
-	}
+	public abstract String exec(String arg[], Map var, Map mkdev);
 }

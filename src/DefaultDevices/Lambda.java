@@ -17,22 +17,21 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class If extends Device{
+import src.*;
+
+public class Lambda extends Device{
 	
-	static String name="if";
+	static String name="lambda";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		if (arg[1].equalsIgnoreCase("0")||arg[1].equalsIgnoreCase("0.0")){
-			return arg[3];
-		}
-		else{
-			return arg[2];
-		}
+		return "runlambda '"+arg[1]+"\" '"+arg[2]+"\"";
 	}
 }

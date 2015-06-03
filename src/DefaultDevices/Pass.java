@@ -17,24 +17,21 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class Lt extends Device{
+import src.*;
+
+public class Pass extends Device{
 	
-	static String name="lt";
+	static String name="pass";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		String cres="";
-		int flag=1;
-		for (int i=2;i<arg.length;i++){
-			if ((Math.min(Double.parseDouble(arg[i-1]),Double.parseDouble(arg[i]))!=Double.parseDouble(arg[i-1]))||Double.parseDouble(arg[i])==Double.parseDouble(arg[i-1])){
-				flag=0;
-			}
-		}
-		return flag+"";
+		return "";
 	}
 }

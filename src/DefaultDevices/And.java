@@ -17,17 +17,28 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class Lambda extends Device{
+import src.*;
+
+public class And extends Device{
 	
-	static String name="lambda";
+	static String name="and";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		return "runlambda '"+arg[1]+"\" '"+arg[2]+"\"";
+		String cres="";
+		int flag=1;
+		for (int i=1;i<arg.length;i++){
+			if (arg[i].equalsIgnoreCase("0")||arg[i].equalsIgnoreCase("0.0")){
+				flag=0;
+			}
+		}
+		return flag+"";
 	}
 }

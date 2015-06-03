@@ -17,11 +17,15 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class Print extends Device{
+import src.*;
+
+public class Not extends Device{
 	
-	static String name="print";
+	static String name="not";
 	
 	public String getname(){
 		return this.name;
@@ -29,10 +33,11 @@ public class Print extends Device{
 	
 	public String exec(String arg[], Map var, Map mkdev){
 		String cres="";
-		for (int i=1;i<arg.length;i++){
-			cres+=arg[i]+" ";
+		if (arg[1].equalsIgnoreCase("0")||arg[1].equalsIgnoreCase("0.0")){
+			return "1";
 		}
-		System.out.println(cres);
-		return "";
+		else{
+			return "0";
+		}
 	}
 }

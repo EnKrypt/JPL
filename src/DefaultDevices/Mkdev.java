@@ -17,21 +17,26 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
+import java.io.*;
 import java.util.*;
 
-public class Add extends Device{
+import src.*;
+
+public class Mkdev extends Device{
 	
-	static String name="add";
+	static String name="mkdev";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		double cres=0;
-		for (int i=1;i<arg.length;i++){
-			cres+=Double.parseDouble(arg[i]);
+		if (arg.length==3){
+			mkdev.put(arg[1],arg[2]);
+			return "";
 		}
-		return ""+cres;
+		return "";
 	}
 }

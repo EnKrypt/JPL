@@ -17,8 +17,13 @@
 //   *         (C) James McClain 2011 .                                       *
 //   **************************************************************************
 
+package src;
+
 import java.util.*;
 import java.util.regex.*;
+
+import src.*;
+import src.DefaultDevices.*;
 
 public class Lisp{
 	

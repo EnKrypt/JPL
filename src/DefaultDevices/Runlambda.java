@@ -17,44 +17,48 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-import java.io.*;
+package src.DefaultDevices;
+
 import java.util.*;
 
-public class Save extends Device{
+import src.*;
+
+public class Runlambda extends Device{
 	
-	static String name="save";
+	static String name="runlambda";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		String lin="",cres="";
-		try{
-			File fil=new File(arg[1]);
-			if (!fil.exists()){
-				fil.createNewFile();
+		arg[1] = arg[1].replaceFirst("^\\(","");
+		arg[1] = arg[1].replaceFirst("\\)$","");
+		arg[1] = arg[1].replaceAll(" +"," ");
+		String[] lambdaArg = arg[1].split(" ");
+		String to_eval;
+		to_eval = arg[2];
+		to_eval = to_eval.replaceAll("\\("," ( ");
+		to_eval = to_eval.replaceAll("\\)"," ) ");
+		to_eval = to_eval.replaceAll("'"," ' ");
+		to_eval = to_eval.replaceAll("\""," \" ");
+		int i;
+		int q;
+		int argNum = 3;
+		String[] to_eval_array;
+		for(i=0,q=0; i < lambdaArg.length;++i,++argNum){
+			to_eval_array = to_eval.split(" ");
+			for(q=0;q < to_eval_array.length;++q){
+				if(to_eval_array[q].equals(lambdaArg[i])) {
+					to_eval_array[q] = arg[argNum];
+				}
 			}
-			BufferedWriter read=new BufferedWriter(new FileWriter(arg[1]));
-			Set cvar = var.keySet();
-			Set cmkdev = mkdev.keySet();
-			Iterator itrv = cvar.iterator();
-			Iterator itrm = cmkdev.iterator();
-			while (itrv.hasNext()){
-				String nex=itrv.next().toString();
-				read.write("(var "+nex+" '"+var.get(nex)+"\")");
-				read.newLine();
-				read.flush();
-			}
-			while (itrm.hasNext()){
-				String nex=itrm.next().toString();
-				read.write("(mkdev "+nex+" '"+mkdev.get(nex)+"\")");
-				read.newLine();
-				read.flush();
-			}
-			read.close();
+			to_eval = Lisp.combine(to_eval_array," ");
 		}
-		catch(Exception e){ e.printStackTrace(); }
-		return "(eval '"+cres+"\")";
+		to_eval = to_eval.replaceAll(" \\( ","(");
+		to_eval = to_eval.replaceAll(" \\) ",")");
+		to_eval = to_eval.replaceAll(" ' ","'");
+		to_eval = to_eval.replaceAll(" \" ","\"");
+		return "(eval '"+to_eval+"\")";
 	}
 }

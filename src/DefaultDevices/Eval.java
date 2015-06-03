@@ -17,7 +17,11 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+package src.DefaultDevices;
+
 import java.util.*;
+
+import src.*;
 
 public class Eval extends Device{
 	

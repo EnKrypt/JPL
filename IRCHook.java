@@ -21,29 +21,22 @@ import java.io.*;
 
 import src.*;
 
-class InterpreterHook extends Hook{ //Acts as an interpreter via the console. Will run directly through the command line.
+class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 	
-	BufferedReader input=new BufferedReader(new InputStreamReader(System.in));
-	BufferedWriter output=new BufferedWriter(new OutputStreamWriter(System.out));
+	
 	
 	public void write(String param)throws IOException{
-		output.write(param);
-		output.flush();
+		
 	}
 	
 	public String read()throws IOException{
-		return input.readLine();
+		
 	}
 	
 	public static void main(String args[])throws IOException{
-		InterpreterHook hook=new InterpreterHook();
+		IRCHook hook=new IRCHook();
 		Lisp lisp=new Lisp(hook);
-		String inp="";
-		while(!inp.equalsIgnoreCase("exit")){
-			hook.write("LISP> ");
-			inp=hook.read();
-			hook.write("Result: "+lisp.parse(inp)+"\n"); //Hook the Lisp parser to the interpreter
-		}
+		
 	}
 }
 

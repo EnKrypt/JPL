@@ -52,7 +52,7 @@ public class Lisp{
 		new Or(),
 		new Not(),
 		new Print(),
-		new Read(),
+		new Read(), //TODO : Implement dynamic protocol to receive content, instead of System.in
 		new ReadURL(),
 		new Save(),
 		new Include(),
@@ -103,38 +103,6 @@ public class Lisp{
 		if (deviceIndex>=0){
 			return defaultDevices[deviceIndex].exec(arg,var,mkdev);
 		}
-		/*
-        else if (arg[0].equalsIgnoreCase("runlambda")){
-            arg[1] = arg[1].replaceFirst("^\\(","");
-            arg[1] = arg[1].replaceFirst("\\)$","");
-            arg[1] = arg[1].replaceAll(" +"," ");
-            String[] lambdaArg = arg[1].split(" ");
-            String to_eval;
-            to_eval = arg[2];
-            to_eval = to_eval.replaceAll("\\("," ( ");
-            to_eval = to_eval.replaceAll("\\)"," ) ");
-            to_eval = to_eval.replaceAll("'"," ' ");
-            to_eval = to_eval.replaceAll("\""," \" ");
-            int i;
-            int q;
-            int argNum = 3;
-            String[] to_eval_array;
-            for(i=0,q=0; i < lambdaArg.length;++i,++argNum){
-                to_eval_array = to_eval.split(" ");
-                for(q=0;q < to_eval_array.length;++q){
-                    if(to_eval_array[q].equals(lambdaArg[i])) {
-                        to_eval_array[q] = arg[argNum];
-                    }
-                }
-                to_eval = combine(to_eval_array," ");
-            }
-            to_eval = to_eval.replaceAll(" \\( ","(");
-            to_eval = to_eval.replaceAll(" \\) ",")");
-            to_eval = to_eval.replaceAll(" ' ","'");
-            to_eval = to_eval.replaceAll(" \" ","\"");
-            return "(eval '"+to_eval+"\")";
-        }
-		*/
 		else{
 			String devi="";
 			String param="";

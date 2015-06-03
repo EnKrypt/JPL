@@ -23,12 +23,20 @@ import src.*;
 
 class InterpreterHook{ //Acts as an interpreter via the console. Will run directly through the command line.
 	public static void main(String args[])throws IOException{
-		BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader input=new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter output=new BufferedWriter(new OutputStreamWriter(System.out));
 		String inp="";
 		while(!inp.equalsIgnoreCase("exit")){
-			System.out.print("LISP> ");
-			inp=b.readLine();
-			System.out.println("Result: "+Lisp.parse(inp)); //Hook the Lisp parser to the interpreter
+			output.write("LISP> ");
+			output.flush();
+			inp=input.readLine();
+			output.write("Result: "+Lisp.parse(inp)+"\n"); //Hook the Lisp parser to the interpreter
+			output.flush();
 		}
 	}
 }
+
+/*
+This class of the project isn't strictly part of the JPL0 library.
+It simply servers to provide the input and output interface through which the library is interacted through.
+*/

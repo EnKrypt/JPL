@@ -59,7 +59,8 @@ public class Lisp{
 		new Mkdev(),
 		new Pass(),
 		new If(),
-		new Var()
+		new Var(),
+		new Lambda()
 	};
 
 	public static String parse(String code){
@@ -102,20 +103,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg,var,mkdev);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("var")&&arg.length==3){
-			var.put(arg[1],arg[2]);
-			return "";
-		}
-		else if (arg[0].equalsIgnoreCase("var")&&arg.length==2){
-			String setvar="";
-			try{
-				setvar=var.get(arg[1]).toString();
-			}
-			catch(NullPointerException npe){
-				setvar="0";
-			}
-			return ""+setvar;
-		}
         else if (arg[0].equalsIgnoreCase("lambda")){
             return "runlambda '"+arg[1]+"\" '"+arg[2]+"\"";
         }

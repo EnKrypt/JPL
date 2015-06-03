@@ -48,7 +48,8 @@ public class Lisp{
 		new Eq(),
 		new Gt(),
 		new Lt(),
-		new Strlen()
+		new Strlen(),
+		new And()
 	};
 
 	public static String parse(String code){
@@ -91,9 +92,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("strlen")){
-			return ""+arg[1].length();
-		}
 		else if (arg[0].equalsIgnoreCase("and")){
 			String cres="";
 			int flag=1;

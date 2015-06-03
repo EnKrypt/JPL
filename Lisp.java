@@ -57,7 +57,8 @@ public class Lisp{
 		new Save(),
 		new Include(),
 		new Mkdev(),
-		new Pass()
+		new Pass(),
+		new If()
 	};
 
 	public static String parse(String code){
@@ -100,10 +101,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg,var,mkdev);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("pass")){
-			String cres="";
-			return "";
-		}
 		else if (arg[0].equalsIgnoreCase("if")){
 			if (arg[1].equalsIgnoreCase("0")||arg[1].equalsIgnoreCase("0")){
 				return arg[3];

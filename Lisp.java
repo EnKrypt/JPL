@@ -47,7 +47,8 @@ public class Lisp{
 		new Slice(),
 		new Eq(),
 		new Gt(),
-		new Lt()
+		new Lt(),
+		new Strlen()
 	};
 
 	public static String parse(String code){
@@ -90,16 +91,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("lt")){
-			String cres="";
-			int flag=1;
-			for (int i=2;i<arg.length;i++){
-				if ((Math.min(Double.parseDouble(arg[i-1]),Double.parseDouble(arg[i]))!=Double.parseDouble(arg[i-1]))||Double.parseDouble(arg[i])==Double.parseDouble(arg[i-1])){
-					flag=0;
-				}
-			}
-			return flag+"";
-		}
 		else if (arg[0].equalsIgnoreCase("strlen")){
 			return ""+arg[1].length();
 		}

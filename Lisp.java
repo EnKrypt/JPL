@@ -55,7 +55,8 @@ public class Lisp{
 		new Read(),
 		new ReadURL(),
 		new Save(),
-		new Include()
+		new Include(),
+		new Mkdev()
 	};
 
 	public static String parse(String code){
@@ -98,18 +99,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("include")){
-			String lin="",cres="";
-			try{
-				BufferedReader read=new BufferedReader(new FileReader(arg[1]));
-				while ((lin=read.readLine())!=null){
-					cres+=lin+" ";
-				}
-				read.close();
-			}
-			catch(Exception e){ e.printStackTrace(); }
-			return "(eval '"+cres+"\")";
-		}
 		else if (arg[0].equalsIgnoreCase("mkdev")&&arg.length==3){
 			mkdev.put(arg[1],arg[2]);
 			return "";

@@ -42,7 +42,8 @@ public class Lisp{
 		new Sub(),
 		new Mul(),
 		new Div(),
-		new Cat()
+		new Cat(),
+		new Eval()
 	};
 
 	public static String parse(String code){
@@ -85,13 +86,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("cat")){
-			String cres="";
-			for (int i=1;i<arg.length;i++){
-				cres+=arg[i];
-			}
-			return cres;
-		}
 		else if (arg[0].equalsIgnoreCase("eval")){
 			String cres="";
             arg[0] = "";

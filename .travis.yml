@@ -1,2 +1,2 @@
 language: java
-script: javac Lisp.java
+script: javac src/Lisp.java

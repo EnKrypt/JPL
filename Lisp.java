@@ -49,7 +49,8 @@ public class Lisp{
 		new Gt(),
 		new Lt(),
 		new Strlen(),
-		new And()
+		new And(),
+		new Or()
 	};
 
 	public static String parse(String code){
@@ -92,16 +93,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("and")){
-			String cres="";
-			int flag=1;
-			for (int i=1;i<arg.length;i++){
-				if (arg[i].equalsIgnoreCase("0")||arg[i].equalsIgnoreCase("0.0")){
-					flag=0;
-				}
-			}
-			return flag+"";
-		}
 		else if (arg[0].equalsIgnoreCase("or")){
 			String cres="";
 			int flag=0;

@@ -45,7 +45,8 @@ public class Lisp{
 		new Cat(),
 		new Eval(),
 		new Slice(),
-		new Eq()
+		new Eq(),
+		new Gt()
 	};
 
 	public static String parse(String code){
@@ -88,17 +89,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("eq")){
-			String cres="";
-			String eqchk=arg[1];
-			int flag=1;
-			for (int i=1;i<arg.length;i++){
-				if (!arg[i].equalsIgnoreCase(eqchk)){
-					flag=0;
-				}
-			}
-			return flag+"";
-		}
 		else if (arg[0].equalsIgnoreCase("gt")){
 			String cres="";
 			int flag=1;

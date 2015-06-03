@@ -38,7 +38,8 @@ public class Lisp{
 	static String eresult;	
 	
 	static Device[] defaultDevices={
-		new Add()
+		new Add(),
+		new Sub()
 	};
 
 	public static String parse(String code){
@@ -80,14 +81,7 @@ public class Lisp{
 		if (deviceIndex>=0){
 			return defaultDevices[deviceIndex].exec(arg);
 		}
-		/*		 
-		if (arg[0].equalsIgnoreCase("add")){
-			double cres=0;
-			for (int i=1;i<arg.length;i++){
-				cres+=Double.parseDouble(arg[i]);
-			}
-			return ""+cres;
-		}
+		/*
 		else if (arg[0].equalsIgnoreCase("sub")){
 			double cres=Double.parseDouble(arg[1]);
 			for (int i=2;i<arg.length;i++){

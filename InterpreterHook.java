@@ -22,12 +22,11 @@ import java.io.*;
 class InterpreterHook{ //Acts as an interpreter via the console. Will run directly through the command line.
 	public static void main(String args[])throws IOException{
 		BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-		Lisp lisp=new Lisp(); //Instance of the actual class which handles PL0
 		String inp="";
 		while(!inp.equalsIgnoreCase("exit")){
 			System.out.print("LISP> ");
 			inp=b.readLine();
-			System.out.println("Result: "+lisp.parse(inp)); //Hook the Lisp instance to the interpreter
+			System.out.println("Result: "+Lisp.parse(inp)); //Hook the Lisp parser to the interpreter
 		}
 	}
 }

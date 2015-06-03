@@ -21,11 +21,14 @@ package src;
 
 import java.io.*;
 
-public abstract class Hook{
+public abstract class Hook{ //All hooks must extend this class. This is the template hooks must follow to use the library.
 	
 	static boolean isHook=true;
 	
 	public abstract void write(String param)throws IOException;
 	
 	public abstract String read()throws IOException;
+	
+	//Main method isn't required to be present. Hooks themselves can be part of another library.
+	//Execution point may not be in the hook class, but as long as it has methods to read and write, the class is a valid hook.
 }

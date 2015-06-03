@@ -19,7 +19,6 @@
 
 import java.util.*;
 import java.util.regex.*;
-import java.net.*;
 
 public class Lisp{
 	
@@ -53,7 +52,8 @@ public class Lisp{
 		new Or(),
 		new Not(),
 		new Print(),
-		new Read()
+		new Read(),
+		new ReadURL()
 	};
 
 	public static String parse(String code){
@@ -96,37 +96,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("read")&&arg.length==2){
-			String cres="";
-			for (int i=1;i<arg.length;i++){
-				cres+=arg[i]+" ";
-			}
-			if (cres.equals(" ")){
-				try{
-					BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-					cres=b.readLine();
-				}
-				catch(Exception e) {}
-			}
-			else{
-				try{
-					System.out.print(cres);
-					BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-					cres=b.readLine();
-				}
-				catch(Exception e) {}
-			}
-			return "'"+cres+"\"";
-		}
-		else if (arg[0].equalsIgnoreCase("read")&&arg.length==1){
-			String cres="";
-			try{
-				cres=in.readLine();
-				cres=cres.substring(cres.lastIndexOf(":")+1);
-			}
-			catch(Exception e) {}
-			return "'"+cres+"\"";
-		}
 		else if (arg[0].equalsIgnoreCase("read-url")){
 			String lin="",cres="";
 			try{

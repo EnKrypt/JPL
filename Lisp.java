@@ -5,7 +5,7 @@
 //   *  the Free Software Foundation, either version 3 of the License, or     *
 //   * (at your option) any later version.                                    *
 //   *                                                                        *
-//   *  This program is distributed in the hope that it will be useful,       *  
+//   *  This program is distributed in the hope that it will be useful,       *
 //   *  but WITHOUT ANY WARRANTY; without even the implied warranty of        *
 //   *  MERCHANTABILITY || FITNESS FOR A PARTICULAR PURPOSE.  See the         *
 //   *  GNU General Public License for more details.                          *
@@ -17,13 +17,13 @@
 //   *         (C) James McClain 2011 .                                       *
 //   **************************************************************************
 
-import java.io.*;
 import java.util.*;
 import java.util.regex.*;
 import java.net.*;
 
 public class Lisp{
 	
+	//Bunch of arbitrary global variables used
 	static Pattern lisp;
 	static Matcher now;
 	static Pattern quo;
@@ -36,6 +36,10 @@ public class Lisp{
 	static Map mkdev=new HashMap();
 	static String result;
 	static String eresult;	
+	
+	static Device[] defaultDevices={
+		new Add()
+	};
 
 	public static String parse(String code){
         Pattern lisp;
@@ -67,6 +71,16 @@ public class Lisp{
                  // for(int i=0;i<arg.length;++i){
                  //     System.out.println(i+" : "+arg[i]);
                  // }
+		int deviceIndex=-1;
+		for (int i=0;i<defaultDevices.length;i++){
+			if (arg[0].equalsIgnoreCase(defaultDevices[i].getname())){
+				deviceIndex=i;
+			}
+		}
+		if (deviceIndex>=0){
+			return defaultDevices[deviceIndex].exec(arg);
+		}
+		/*		 
 		if (arg[0].equalsIgnoreCase("add")){
 			double cres=0;
 			for (int i=1;i<arg.length;i++){
@@ -210,8 +224,7 @@ public class Lisp{
 		else if (arg[0].equalsIgnoreCase("read")&&arg.length==1){
 			String cres="";
 			try{
-				BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-				cres=b.readLine();
+				cres=in.readLine();
 				cres=cres.substring(cres.lastIndexOf(":")+1);
 			}
 			catch(Exception e) {}
@@ -334,6 +347,7 @@ public class Lisp{
             to_eval = to_eval.replaceAll(" \" ","\"");
             return "(eval '"+to_eval+"\")";
         }
+		*/
 		else{
 			String devi="";
 			String param="";

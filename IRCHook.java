@@ -18,25 +18,73 @@
 //   **************************************************************************
 
 import java.io.*;
+import java.net.*;
 
 import src.*;
 
 class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 	
+	static String host="irc.jamezq.com"; //Test network
+	static String channel="#u413"; //Test channel
+	static String nick="PL0Bot"; //IRC Nickname
+	static String command="!pl"; //Command to trigger the bot to parse input
 	
+	boolean debug=false;
+	Socket con;
+	BufferedReader input;
+	BufferedWriter output;
+	
+	public IRCHook()throws IOException{
+		con=new Socket(host,6667);
+		input = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		output = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
+	}
 	
 	public void write(String param)throws IOException{
-		
+		output.write("PRIVMSG "+channel+" :"+param+"\r\n"); 
+		if (debug){
+			System.out.println(param);
+		}
+		output.flush();
 	}
 	
 	public String read()throws IOException{
-		
+		while (true){
+			String get=input.readLine();
+			if (debug){
+				System.out.println(get);
+			}
+			if (get.startsWith("PING")){
+				output.write("PONG "+get.substring(5)+"\r\n"); 
+				if (debug){
+					System.out.println("PONG sent");
+				}
+				output.flush();
+			}
+			String[] commands=get.split(" ");
+			if (commands[1].equalsIgnoreCase("PRIVMSG")&&commands[2].equalsIgnoreCase(channel)){
+				String message="";
+				for (int i=3;i<commands.length;i++){
+					message+=commands[i]+" ";
+				}
+				if (message.substring(1,command.length()+1).equalsIgnoreCase(command)){
+					return message=message.substring(command.length()+1).trim();
+				}
+			}
+		}
 	}
 	
 	public static void main(String args[])throws IOException{
 		IRCHook hook=new IRCHook();
 		Lisp lisp=new Lisp(hook);
-		
+		hook.output.write("NICK " + nick + "\r\n");
+        hook.output.write("USER " + "JPL0" + " \"\" \"\" :" + "PL0Bot" + "\r\n");
+		hook.output.write("JOIN " + channel + "\r\n");
+		hook.output.flush();
+		System.out.println("Running");
+		while(true){
+			hook.write("Result: "+lisp.parse(hook.read())); //Hook the Lisp parser to the interpreter
+		}
 	}
 }
 

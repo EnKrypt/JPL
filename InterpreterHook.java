@@ -22,16 +22,27 @@ import java.io.*;
 import src.*;
 
 class InterpreterHook{ //Acts as an interpreter via the console. Will run directly through the command line.
+	
+	BufferedReader input=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter output=new BufferedWriter(new OutputStreamWriter(System.out));
+	
+	public void write(String param){
+		output.write(param);
+		output.flush();
+	}
+	
+	public String read()throws IOException{
+		return input.readLine();
+	}
+	
 	public static void main(String args[])throws IOException{
-		BufferedReader input=new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter output=new BufferedWriter(new OutputStreamWriter(System.out));
+		InterpreterHook hook=new InterpreterHook();
+		Lisp lisp=new Lisp(hook);
 		String inp="";
 		while(!inp.equalsIgnoreCase("exit")){
-			output.write("LISP> ");
-			output.flush();
-			inp=input.readLine();
-			output.write("Result: "+Lisp.parse(inp)+"\n"); //Hook the Lisp parser to the interpreter
-			output.flush();
+			hook.write("LISP> ");
+			inp=hook.read();
+			hook.write("Result: "+lisp.parse(inp)+"\n"); //Hook the Lisp parser to the interpreter
 		}
 	}
 }

@@ -60,7 +60,8 @@ public class Lisp{
 		new Pass(),
 		new If(),
 		new Var(),
-		new Lambda()
+		new Lambda(),
+		new Runlambda()
 	};
 
 	public static String parse(String code){
@@ -103,9 +104,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg,var,mkdev);
 		}
 		/*
-        else if (arg[0].equalsIgnoreCase("lambda")){
-            return "runlambda '"+arg[1]+"\" '"+arg[2]+"\"";
-        }
         else if (arg[0].equalsIgnoreCase("runlambda")){
             arg[1] = arg[1].replaceFirst("^\\(","");
             arg[1] = arg[1].replaceFirst("\\)$","");

@@ -19,29 +19,42 @@
 
 import java.util.*;
 
-public class Var extends Device{
+public class Runlambda extends Device{
 	
-	static String name="var";
+	static String name="runlambda";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev){
-		if (arg.length==3){
-			var.put(arg[1],arg[2]);
-			return "";
-		}
-		else if (arg.length==2){
-			String setvar="";
-			try{
-				setvar=var.get(arg[1]).toString();
+		arg[1] = arg[1].replaceFirst("^\\(","");
+		arg[1] = arg[1].replaceFirst("\\)$","");
+		arg[1] = arg[1].replaceAll(" +"," ");
+		String[] lambdaArg = arg[1].split(" ");
+		String to_eval;
+		to_eval = arg[2];
+		to_eval = to_eval.replaceAll("\\("," ( ");
+		to_eval = to_eval.replaceAll("\\)"," ) ");
+		to_eval = to_eval.replaceAll("'"," ' ");
+		to_eval = to_eval.replaceAll("\""," \" ");
+		int i;
+		int q;
+		int argNum = 3;
+		String[] to_eval_array;
+		for(i=0,q=0; i < lambdaArg.length;++i,++argNum){
+			to_eval_array = to_eval.split(" ");
+			for(q=0;q < to_eval_array.length;++q){
+				if(to_eval_array[q].equals(lambdaArg[i])) {
+					to_eval_array[q] = arg[argNum];
+				}
 			}
-			catch(NullPointerException npe){
-				setvar="0";
-			}
-			return ""+setvar;
+			to_eval = Lisp.combine(to_eval_array," ");
 		}
-		return "";
+		to_eval = to_eval.replaceAll(" \\( ","(");
+		to_eval = to_eval.replaceAll(" \\) ",")");
+		to_eval = to_eval.replaceAll(" ' ","'");
+		to_eval = to_eval.replaceAll(" \" ","\"");
+		return "(eval '"+to_eval+"\")";
 	}
 }

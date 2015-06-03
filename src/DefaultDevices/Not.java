@@ -31,7 +31,7 @@ public class Not extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[], Map var, Map mkdev){
+	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		String cres="";
 		if (arg[1].equalsIgnoreCase("0")||arg[1].equalsIgnoreCase("0.0")){
 			return "1";

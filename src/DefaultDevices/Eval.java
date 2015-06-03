@@ -31,11 +31,11 @@ public class Eval extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[], Map var, Map mkdev){
+	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		String cres="";
 		arg[0]="";
-		cres=Lisp.combine(arg," ");
-		cres=Lisp.parse(cres);
+		cres=lisp.combine(arg," ");
+		cres=lisp.parse(cres);
 		return cres;
 	}
 }

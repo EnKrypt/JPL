@@ -31,7 +31,7 @@ public class Var extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[], Map var, Map mkdev){
+	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		if (arg.length==3){
 			var.put(arg[1],arg[2]);
 			return "";

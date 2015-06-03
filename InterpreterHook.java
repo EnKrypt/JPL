@@ -21,12 +21,12 @@ import java.io.*;
 
 import src.*;
 
-class InterpreterHook{ //Acts as an interpreter via the console. Will run directly through the command line.
+class InterpreterHook extends Hook{ //Acts as an interpreter via the console. Will run directly through the command line.
 	
 	BufferedReader input=new BufferedReader(new InputStreamReader(System.in));
 	BufferedWriter output=new BufferedWriter(new OutputStreamWriter(System.out));
 	
-	public void write(String param){
+	public void write(String param)throws IOException{
 		output.write(param);
 		output.flush();
 	}

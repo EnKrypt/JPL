@@ -31,7 +31,7 @@ public class Runlambda extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[], Map var, Map mkdev){
+	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		arg[1] = arg[1].replaceFirst("^\\(","");
 		arg[1] = arg[1].replaceFirst("\\)$","");
 		arg[1] = arg[1].replaceAll(" +"," ");
@@ -53,7 +53,7 @@ public class Runlambda extends Device{
 					to_eval_array[q] = arg[argNum];
 				}
 			}
-			to_eval = Lisp.combine(to_eval_array," ");
+			to_eval = lisp.combine(to_eval_array," ");
 		}
 		to_eval = to_eval.replaceAll(" \\( ","(");
 		to_eval = to_eval.replaceAll(" \\) ",")");

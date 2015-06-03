@@ -17,25 +17,15 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-package src.DefaultDevices;
+package src;
 
-import java.util.*;
+import java.io.*;
 
-import src.*;
-
-public class Mul extends Device{
+public abstract class Hook{
 	
-	static String name="mul";
+	static boolean isHook=true;
 	
-	public String getname(){
-		return this.name;
-	}
+	public abstract void write(String param)throws IOException;
 	
-	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
-		double cres=Double.parseDouble(arg[1]);;
-		for (int i=2;i<arg.length;i++){
-			cres*=Double.parseDouble(arg[i]);
-		}
-		return ""+cres;
-	}
+	public abstract String read()throws IOException;
 }

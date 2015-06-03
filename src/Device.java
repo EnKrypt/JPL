@@ -30,5 +30,5 @@ public abstract class Device{
 	
 	public abstract String getname();
 	
-	public abstract String exec(String arg[], Map var, Map mkdev);
+	public abstract String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp);
 }

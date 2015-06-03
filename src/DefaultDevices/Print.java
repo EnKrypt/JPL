@@ -31,12 +31,15 @@ public class Print extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[], Map var, Map mkdev){
+	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		String cres="";
 		for (int i=1;i<arg.length;i++){
 			cres+=arg[i]+" ";
 		}
-		System.out.println(cres);
+		try{
+			hook.write(cres+"\n");
+		}
+		catch (Exception e){}
 		return "";
 	}
 }

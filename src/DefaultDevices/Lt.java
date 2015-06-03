@@ -31,7 +31,7 @@ public class Lt extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[], Map var, Map mkdev){
+	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		String cres="";
 		int flag=1;
 		for (int i=2;i<arg.length;i++){

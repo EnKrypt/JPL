@@ -31,7 +31,7 @@ public class Strlen extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[], Map var, Map mkdev){
+	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		return ""+arg[1].length();
 	}
 }

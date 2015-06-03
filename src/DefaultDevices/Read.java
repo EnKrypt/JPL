@@ -32,7 +32,7 @@ public class Read extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[], Map var, Map mkdev){
+	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		if (arg.length==2){
 			String cres="";
 			for (int i=1;i<arg.length;i++){
@@ -40,16 +40,14 @@ public class Read extends Device{
 			}
 			if (cres.equals(" ")){
 				try{
-					BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-					cres=b.readLine();
+					cres=hook.read();
 				}
 				catch(Exception e) {}
 			}
 			else{
 				try{
-					System.out.print(cres);
-					BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-					cres=b.readLine();
+					hook.write(cres);
+					cres=hook.read();
 				}
 				catch(Exception e) {}
 			}
@@ -58,8 +56,7 @@ public class Read extends Device{
 		else if (arg.length==1){
 			String cres="";
 			try{
-				BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-				cres=b.readLine();
+				cres=hook.read();
 				cres=cres.substring(cres.lastIndexOf(":")+1);
 			}
 			catch(Exception e) {}

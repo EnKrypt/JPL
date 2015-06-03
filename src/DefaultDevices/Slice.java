@@ -31,7 +31,7 @@ public class Slice extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[], Map var, Map mkdev){
+	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		String cres="";
 		cres=arg[1].substring(Integer.parseInt(arg[2]),Integer.parseInt(arg[3])+1);
 		return cres;

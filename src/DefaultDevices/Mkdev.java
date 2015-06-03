@@ -32,7 +32,7 @@ public class Mkdev extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[], Map var, Map mkdev){
+	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		if (arg.length==3){
 			mkdev.put(arg[1],arg[2]);
 			return "";

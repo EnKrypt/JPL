@@ -26,22 +26,28 @@ import src.*;
 import src.DefaultDevices.*;
 
 public class Lisp{
+
+	Hook hook;
 	
 	//Bunch of arbitrary global variables used
-	static Pattern lisp;
-	static Matcher now;
-	static Pattern quo;
-	static Matcher nowa;
-	static Pattern elisp;
-	static Matcher enow;
-	static Pattern equo;
-	static Matcher enowa;
-	static Map var=new HashMap();
-	static Map mkdev=new HashMap();
-	static String result;
-	static String eresult;	
+	Pattern lisp;
+	Matcher now;
+	Pattern quo;
+	Matcher nowa;
+	Pattern elisp;
+	Matcher enow;
+	Pattern equo;
+	Matcher enowa;
+	Map var=new HashMap();
+	Map mkdev=new HashMap();
+	String result;
+	String eresult;	
 	
-	static Device[] defaultDevices={
+	public Lisp(Hook hk){
+		hook=hk;
+	}
+	
+	Device[] defaultDevices={
 		new Add(),
 		new Sub(),
 		new Mul(),
@@ -69,7 +75,7 @@ public class Lisp{
 		new Runlambda()
 	};
 
-	public static String parse(String code){
+	public String parse(String code){
         Pattern lisp;
         Matcher now;
         Pattern quo;
@@ -94,7 +100,7 @@ public class Lisp{
             return cfin[cfin.length-1];
         return "";
 	}
-	public static String eval(String arg[]){
+	public String eval(String arg[]){
 		arg=requote(arg);
                  // for(int i=0;i<arg.length;++i){
                  //     System.out.println(i+" : "+arg[i]);
@@ -106,7 +112,7 @@ public class Lisp{
 			}
 		}
 		if (deviceIndex>=0){
-			return defaultDevices[deviceIndex].exec(arg,var,mkdev);
+			return defaultDevices[deviceIndex].exec(arg,var,mkdev,hook,this);
 		}
 		else{
 			String devi="";
@@ -123,7 +129,7 @@ public class Lisp{
             return "("+devi+param+")";
 		}
 	}
-	public static String[] requote(String[] ar) {
+	public String[] requote(String[] ar) {
 		for(int i=0;i<ar.length;i++) {
     			ar[i] = ar[i].replaceAll("---","'");
   			ar[i] = ar[i].replaceAll("~~~","\"");
@@ -135,7 +141,7 @@ public class Lisp{
   		}
   		return ar;
 	}
-	public static String unquote(String ar) {
+	public String unquote(String ar) {
             Pattern lisp;
             Matcher now;
             Pattern quo;
@@ -154,7 +160,7 @@ public class Lisp{
             }
             return ar;
 	}
-    public static String combine(String[] s, String glue) {
+    public String combine(String[] s, String glue) {
         int k=s.length;
         if (k==0)
             return null;

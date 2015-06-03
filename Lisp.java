@@ -56,7 +56,8 @@ public class Lisp{
 		new ReadURL(),
 		new Save(),
 		new Include(),
-		new Mkdev()
+		new Mkdev(),
+		new Pass()
 	};
 
 	public static String parse(String code){
@@ -99,10 +100,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg,var,mkdev);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("mkdev")&&arg.length==3){
-			mkdev.put(arg[1],arg[2]);
-			return "";
-		}
 		else if (arg[0].equalsIgnoreCase("pass")){
 			String cres="";
 			return "";

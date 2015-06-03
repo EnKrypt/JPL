@@ -17,6 +17,8 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+import java.util.*;
+
 public abstract class Device{
 	
 	static boolean isDevice=true;
@@ -24,5 +26,5 @@ public abstract class Device{
 	
 	public abstract String getname();
 	
-	public abstract String exec(String arg[]);
+	public abstract String exec(String arg[], Map var, Map mkdev);
 }

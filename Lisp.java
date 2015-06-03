@@ -96,7 +96,7 @@ public class Lisp{
 			}
 		}
 		if (deviceIndex>=0){
-			return defaultDevices[deviceIndex].exec(arg);
+			return defaultDevices[deviceIndex].exec(arg,var,mkdev);
 		}
 		/*
 		else if (arg[0].equalsIgnoreCase("mkdev")&&arg.length==3){

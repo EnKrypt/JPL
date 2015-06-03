@@ -18,6 +18,8 @@
 //   ************************************************************************** 
 
 import java.io.*;
+import java.util.*;
+
 public class Include extends Device{
 	
 	static String name="include";
@@ -26,7 +28,7 @@ public class Include extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		String lin="",cres="";
 		try{
 			BufferedReader read=new BufferedReader(new FileReader(arg[1]));

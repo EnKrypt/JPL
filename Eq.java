@@ -17,6 +17,8 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+import java.util.*;
+
 public class Eq extends Device{
 	
 	static String name="eq";
@@ -25,7 +27,7 @@ public class Eq extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		String cres="";
 		String eqchk=arg[1];
 		int flag=1;

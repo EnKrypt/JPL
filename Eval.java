@@ -17,6 +17,8 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+import java.util.*;
+
 public class Eval extends Device{
 	
 	static String name="eval";
@@ -25,7 +27,7 @@ public class Eval extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		String cres="";
 		arg[0]="";
 		cres=Lisp.combine(arg," ");

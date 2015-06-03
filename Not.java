@@ -17,6 +17,8 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+import java.util.*;
+
 public class Not extends Device{
 	
 	static String name="not";
@@ -25,7 +27,7 @@ public class Not extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		String cres="";
 		if (arg[1].equalsIgnoreCase("0")||arg[1].equalsIgnoreCase("0.0")){
 			return "1";

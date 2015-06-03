@@ -16,6 +16,7 @@
 //   *         (C) Arvind Kumar 2011 .                                        *
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
+import java.util.*;
 
 public class Mul extends Device{
 	
@@ -25,7 +26,7 @@ public class Mul extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		double cres=Double.parseDouble(arg[1]);;
 		for (int i=2;i<arg.length;i++){
 			cres*=Double.parseDouble(arg[i]);

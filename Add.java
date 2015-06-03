@@ -17,6 +17,8 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+import java.util.*;
+
 public class Add extends Device{
 	
 	static String name="add";
@@ -25,7 +27,7 @@ public class Add extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		double cres=0;
 		for (int i=1;i<arg.length;i++){
 			cres+=Double.parseDouble(arg[i]);

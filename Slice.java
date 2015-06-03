@@ -17,6 +17,8 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+import java.util.*;
+
 public class Slice extends Device{
 	
 	static String name="slice";
@@ -25,7 +27,7 @@ public class Slice extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		String cres="";
 		cres=arg[1].substring(Integer.parseInt(arg[2]),Integer.parseInt(arg[3])+1);
 		return cres;

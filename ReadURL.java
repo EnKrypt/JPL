@@ -19,6 +19,8 @@
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
+
 public class ReadURL extends Device{
 	
 	static String name="read-url";
@@ -27,7 +29,7 @@ public class ReadURL extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		String lin="",cres="";
 		try{
 			URL url=new URL(arg[1]);

@@ -18,6 +18,8 @@
 //   ************************************************************************** 
 
 import java.io.*;
+import java.util.*;
+
 public class Read extends Device{
 	
 	static String name="read";
@@ -26,7 +28,7 @@ public class Read extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		if (arg.length==2){
 			String cres="";
 			for (int i=1;i<arg.length;i++){

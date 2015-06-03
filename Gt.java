@@ -17,6 +17,8 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+import java.util.*;
+
 public class Gt extends Device{
 	
 	static String name="gt";
@@ -25,7 +27,7 @@ public class Gt extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		String cres="";
 		int flag=1;
 		for (int i=2;i<arg.length;i++){

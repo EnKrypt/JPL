@@ -17,6 +17,8 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
+import java.util.*;
+
 public class Strlen extends Device{
 	
 	static String name="strlen";
@@ -25,7 +27,7 @@ public class Strlen extends Device{
 		return this.name;
 	}
 	
-	public String exec(String arg[]){
+	public String exec(String arg[], Map var, Map mkdev){
 		return ""+arg[1].length();
 	}
 }

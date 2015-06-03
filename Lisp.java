@@ -53,7 +53,8 @@ public class Lisp{
 		new Not(),
 		new Print(),
 		new Read(),
-		new ReadURL()
+		new ReadURL(),
+		new Save()
 	};
 
 	public static String parse(String code){
@@ -96,19 +97,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("read-url")){
-			String lin="",cres="";
-			try{
-				URL url=new URL(arg[1]);
-				BufferedReader read=new BufferedReader(new InputStreamReader(url.openStream()));
-				while ((lin=read.readLine())!=null){
-					cres+=lin+" ";
-				}
-				read.close();
-			}
-			catch(Exception e){ e.printStackTrace(); }
-			return "'"+cres+"\"";
-		}
 		else if (arg[0].equalsIgnoreCase("save")){
 			String lin="",cres="";
 			try{

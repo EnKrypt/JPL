@@ -54,7 +54,8 @@ public class Lisp{
 		new Print(),
 		new Read(),
 		new ReadURL(),
-		new Save()
+		new Save(),
+		new Include()
 	};
 
 	public static String parse(String code){
@@ -97,35 +98,6 @@ public class Lisp{
 			return defaultDevices[deviceIndex].exec(arg);
 		}
 		/*
-		else if (arg[0].equalsIgnoreCase("save")){
-			String lin="",cres="";
-			try{
-				File fil=new File(arg[1]);
-				if (!fil.exists()){
-					fil.createNewFile();
-				}
-				BufferedWriter read=new BufferedWriter(new FileWriter(arg[1]));
-				Set cvar = var.keySet();
-				Set cmkdev = mkdev.keySet();
-				Iterator itrv = cvar.iterator();
-				Iterator itrm = cmkdev.iterator();
-				while (itrv.hasNext()){
-					String nex=itrv.next().toString();
-					read.write("(var "+nex+" '"+var.get(nex)+"\")");
-					read.newLine();
-					read.flush();
-				}
-				while (itrm.hasNext()){
-					String nex=itrm.next().toString();
-					read.write("(mkdev "+nex+" '"+mkdev.get(nex)+"\")");
-					read.newLine();
-					read.flush();
-				}
-				read.close();
-			}
-			catch(Exception e){ e.printStackTrace(); }
-			return "(eval '"+cres+"\")";
-		}
 		else if (arg[0].equalsIgnoreCase("include")){
 			String lin="",cres="";
 			try{

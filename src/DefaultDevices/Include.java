@@ -36,6 +36,9 @@ public class Include extends Device{
 		String lin="",cres="";
 		try{
 			String current_directory = System.getProperty("user.dir");
+			if (arg[1].indexOf("/")!=-1||arg[1].indexOf("..")!=-1){
+				throw new FileNotFoundException();
+			}
 			BufferedReader read=new BufferedReader(new FileReader(current_directory+"/"+arg[1]));
 			while ((lin=read.readLine())!=null){
 				cres+=lin+" ";

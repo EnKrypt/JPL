@@ -35,11 +35,15 @@ public class Save extends Device{
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		String lin="",cres="";
 		try{
-			File fil=new File(arg[1]);
+			String current_directory = System.getProperty("user.dir");
+			if (arg[1].indexOf("/")!=-1||arg[1].indexOf("..")!=-1){
+				throw new FileNotFoundException();
+			}
+			File fil=new File(current_directory+"/"+arg[1]);
 			if (!fil.exists()){
 				fil.createNewFile();
 			}
-			BufferedWriter read=new BufferedWriter(new FileWriter(arg[1]));
+			BufferedWriter read=new BufferedWriter(new FileWriter(current_directory+"/"+arg[1]));
 			Set cvar = var.keySet();
 			Set cmkdev = mkdev.keySet();
 			Iterator itrv = cvar.iterator();
@@ -58,7 +62,7 @@ public class Save extends Device{
 			}
 			read.close();
 		}
-		catch(Exception e){ e.printStackTrace(); }
+		catch(Exception e){ e.printStackTrace(); return "(print 'Not saved\""; }
 		return "(eval '"+cres+"\")";
 	}
 }

@@ -2,7 +2,10 @@ Java Portable Lisp 0
 ==
 [![Build Status](https://travis-ci.org/EnKrypt/JPL0.svg)](https://travis-ci.org/EnKrypt/JPL0)
 
-**Standard Functions in PL0**:  
+**Portable Lisp Alpha Specification**:  
+https://docs.google.com/document/d/1pnKDSDNnOU3ytw4FGgRkao8mfjwpyFvgKQMIJGtczVg/edit
+
+**Standard Devices in PL0**:  
 https://docs.google.com/document/d/10iZQ-L6S4k4P38m9rlO6fwcs8ItR_IYRdmZ6ZFIDb5E/edit
 
 ==

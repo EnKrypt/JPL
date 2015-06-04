@@ -8,6 +8,9 @@ https://docs.google.com/document/d/1pnKDSDNnOU3ytw4FGgRkao8mfjwpyFvgKQMIJGtczVg/
 **Standard Devices in PL0**:  
 https://docs.google.com/document/d/10iZQ-L6S4k4P38m9rlO6fwcs8ItR_IYRdmZ6ZFIDb5E/edit
 
+**Extra Devices**:
+https://docs.google.com/document/d/1fgZcsHvRxh_J9P2Ry0lX28csjlpEUfEXcuIozbfos-8/edit
+
 ==
 ### How to use
 

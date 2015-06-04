@@ -17,51 +17,29 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-package src.DefaultDevices;
+package src.devices.defaults;
 
-import java.io.*;
 import java.util.*;
 
 import src.*;
 
-public class Read extends Device{
+public class Eq extends Device{
 	
-	static String name="read";
+	static String name="eq";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
-		if (arg.length==2){
-			String cres="";
-			for (int i=1;i<arg.length;i++){
-				cres+=arg[i]+" ";
+		String cres="";
+		String eqchk=arg[1];
+		int flag=1;
+		for (int i=1;i<arg.length;i++){
+			if (!arg[i].equalsIgnoreCase(eqchk)){
+				flag=0;
 			}
-			if (cres.equals(" ")){
-				try{
-					cres=hook.read();
-				}
-				catch(Exception e) {}
-			}
-			else{
-				try{
-					hook.write(cres);
-					cres=hook.read();
-				}
-				catch(Exception e) {}
-			}
-			return "'"+cres+"\"";
 		}
-		else if (arg.length==1){
-			String cres="";
-			try{
-				cres=hook.read();
-				cres=cres.substring(cres.lastIndexOf(":")+1);
-			}
-			catch(Exception e) {}
-			return "'"+cres+"\"";
-		}
-		return "";
+		return flag+"";
 	}
 }

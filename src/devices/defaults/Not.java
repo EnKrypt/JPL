@@ -17,15 +17,15 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-package src.DefaultDevices;
+package src.devices.defaults;
 
 import java.util.*;
 
 import src.*;
 
-public class Gt extends Device{
+public class Not extends Device{
 	
-	static String name="gt";
+	static String name="not";
 	
 	public String getname(){
 		return this.name;
@@ -33,12 +33,11 @@ public class Gt extends Device{
 	
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		String cres="";
-		int flag=1;
-		for (int i=2;i<arg.length;i++){
-			if ((Math.max(Double.parseDouble(arg[i-1]),Double.parseDouble(arg[i]))!=Double.parseDouble(arg[i-1]))||Double.parseDouble(arg[i])==Double.parseDouble(arg[i-1])){
-				flag=0;
-			}
+		if (arg[1].equalsIgnoreCase("0")||arg[1].equalsIgnoreCase("0.0")){
+			return "1";
 		}
-		return flag+"";
+		else{
+			return "0";
+		}
 	}
 }

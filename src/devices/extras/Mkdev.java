@@ -17,33 +17,26 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-package src.DefaultDevices;
+package src.devices.extras;
 
 import java.io.*;
-import java.net.*;
 import java.util.*;
 
 import src.*;
 
-public class ReadURL extends Device{
+public class Mkdev extends Device{
 	
-	static String name="read-url";
+	static String name="mkdev";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
-		String lin="",cres="";
-		try{
-			URL url=new URL(arg[1]);
-			BufferedReader read=new BufferedReader(new InputStreamReader(url.openStream()));
-			while ((lin=read.readLine())!=null){
-				cres+=lin+" ";
-			}
-			read.close();
+		if (arg.length==3){
+			mkdev.put(arg[1],arg[2]);
+			return "";
 		}
-		catch(Exception e){ e.printStackTrace(); }
-		return "'"+cres+"\"";
+		return "";
 	}
 }

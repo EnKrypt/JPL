@@ -17,21 +17,21 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-package src.DefaultDevices;
+package src.devices.defaults;
 
 import java.util.*;
 
 import src.*;
 
-public class Pass extends Device{
+public class Strlen extends Device{
 	
-	static String name="pass";
+	static String name="strlen";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
-		return "";
+		return ""+arg[1].length();
 	}
 }

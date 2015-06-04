@@ -21,7 +21,8 @@ package src;
 
 import java.util.*;
 
-import src.DefaultDevices.*;
+import src.devices.defaults.*;
+import src.devices.extras.*;
 
 public abstract class Device{
 	

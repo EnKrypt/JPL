@@ -17,26 +17,23 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-package src.DefaultDevices;
+package src.devices.defaults;
 
 import java.util.*;
 
 import src.*;
 
-public class If extends Device{
+public class Slice extends Device{
 	
-	static String name="if";
+	static String name="slice";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
-		if (arg[1].equalsIgnoreCase("0")||arg[1].equalsIgnoreCase("0.0")){
-			return arg[3];
-		}
-		else{
-			return arg[2];
-		}
+		String cres="";
+		cres=arg[1].substring(Integer.parseInt(arg[2]),Integer.parseInt(arg[3])+1);
+		return cres;
 	}
 }

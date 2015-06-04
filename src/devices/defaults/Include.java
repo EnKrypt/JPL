@@ -17,28 +17,35 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-package src.DefaultDevices;
+package src.devices.defaults;
 
+import java.io.*;
 import java.util.*;
 
 import src.*;
 
-public class Or extends Device{
+public class Include extends Device{
 	
-	static String name="or";
+	static String name="include";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
-		String cres="";
-		int flag=0;
-		for (int i=1;i<arg.length;i++){
-			if ((!arg[i].equalsIgnoreCase("0"))&&(!arg[i].equalsIgnoreCase("0.0"))){
-				flag=1;
+		String lin="",cres="";
+		try{
+			String current_directory = System.getProperty("user.dir");
+			if (arg[1].indexOf("/")!=-1||arg[1].indexOf("..")!=-1){
+				throw new FileNotFoundException();
 			}
+			BufferedReader read=new BufferedReader(new FileReader(current_directory+"/"+arg[1]));
+			while ((lin=read.readLine())!=null){
+				cres+=lin+" ";
+			}
+			read.close();
 		}
-		return flag+"";
+		catch(Exception e){ e.printStackTrace(); return "(print 'File not found\")"; }
+		return "(eval '"+cres+"\")";
 	}
 }

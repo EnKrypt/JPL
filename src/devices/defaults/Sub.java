@@ -17,48 +17,25 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-package src.DefaultDevices;
+package src.devices.defaults;
 
 import java.util.*;
 
 import src.*;
 
-public class Runlambda extends Device{
+public class Sub extends Device{
 	
-	static String name="runlambda";
+	static String name="sub";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
-		arg[1] = arg[1].replaceFirst("^\\(","");
-		arg[1] = arg[1].replaceFirst("\\)$","");
-		arg[1] = arg[1].replaceAll(" +"," ");
-		String[] lambdaArg = arg[1].split(" ");
-		String to_eval;
-		to_eval = arg[2];
-		to_eval = to_eval.replaceAll("\\("," ( ");
-		to_eval = to_eval.replaceAll("\\)"," ) ");
-		to_eval = to_eval.replaceAll("'"," ' ");
-		to_eval = to_eval.replaceAll("\""," \" ");
-		int i;
-		int q;
-		int argNum = 3;
-		String[] to_eval_array;
-		for(i=0,q=0; i < lambdaArg.length;++i,++argNum){
-			to_eval_array = to_eval.split(" ");
-			for(q=0;q < to_eval_array.length;++q){
-				if(to_eval_array[q].equals(lambdaArg[i])) {
-					to_eval_array[q] = arg[argNum];
-				}
-			}
-			to_eval = lisp.combine(to_eval_array," ");
+		double cres=Double.parseDouble(arg[1]);
+		for (int i=2;i<arg.length;i++){
+			cres-=Double.parseDouble(arg[i]);
 		}
-		to_eval = to_eval.replaceAll(" \\( ","(");
-		to_eval = to_eval.replaceAll(" \\) ",")");
-		to_eval = to_eval.replaceAll(" ' ","'");
-		to_eval = to_eval.replaceAll(" \" ","\"");
-		return "(eval '"+to_eval+"\")";
+		return ""+cres;
 	}
 }

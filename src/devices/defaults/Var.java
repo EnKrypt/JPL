@@ -17,52 +17,35 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-package src.DefaultDevices;
+package src.devices.defaults;
 
-import java.io.*;
 import java.util.*;
 
 import src.*;
 
-public class Save extends Device{
+public class Var extends Device{
 	
-	static String name="save";
+	static String name="var";
 	
 	public String getname(){
 		return this.name;
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
-		String lin="",cres="";
-		try{
-			String current_directory = System.getProperty("user.dir");
-			if (arg[1].indexOf("/")!=-1||arg[1].indexOf("..")!=-1){
-				throw new FileNotFoundException();
-			}
-			File fil=new File(current_directory+"/"+arg[1]);
-			if (!fil.exists()){
-				fil.createNewFile();
-			}
-			BufferedWriter read=new BufferedWriter(new FileWriter(current_directory+"/"+arg[1]));
-			Set cvar = var.keySet();
-			Set cmkdev = mkdev.keySet();
-			Iterator itrv = cvar.iterator();
-			Iterator itrm = cmkdev.iterator();
-			while (itrv.hasNext()){
-				String nex=itrv.next().toString();
-				read.write("(var "+nex+" '"+var.get(nex)+"\")");
-				read.newLine();
-				read.flush();
-			}
-			while (itrm.hasNext()){
-				String nex=itrm.next().toString();
-				read.write("(mkdev "+nex+" '"+mkdev.get(nex)+"\")");
-				read.newLine();
-				read.flush();
-			}
-			read.close();
+		if (arg.length==3){
+			var.put(arg[1],arg[2]);
+			return "";
 		}
-		catch(Exception e){ e.printStackTrace(); return "(print 'Not saved\")"; }
-		return "(eval '"+cres+"\")";
+		else if (arg.length==2){
+			String setvar="";
+			try{
+				setvar=var.get(arg[1]).toString();
+			}
+			catch(NullPointerException npe){
+				setvar="0";
+			}
+			return ""+setvar;
+		}
+		return "";
 	}
 }

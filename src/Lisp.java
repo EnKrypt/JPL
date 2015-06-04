@@ -23,7 +23,8 @@ import java.util.*;
 import java.util.regex.*;
 
 import src.*;
-import src.DefaultDevices.*;
+import src.devices.defaults.*;
+import src.devices.extras.*;
 
 public class Lisp{
 

@@ -35,14 +35,10 @@ public class Lisp{
 	Matcher now;
 	Pattern quo;
 	Matcher nowa;
-	Pattern elisp;
-	Matcher enow;
-	Pattern equo;
-	Matcher enowa;
 	Map var=new HashMap();
 	Map mkdev=new HashMap();
-	String result;
-	String eresult;	
+	ArrayList<String> result=new ArrayList<String>();
+	int threadindex=0;
 	
 	public Lisp(Hook hk){
 		hook=hk;
@@ -93,9 +89,15 @@ public class Lisp{
             m=m.replaceAll(" +"," ");
 			String[] arg=m.split(" ");
 			String res=eval(arg);
-			result = now.replaceFirst(res);
-			return parse(result);
+			if (result.size()==0){
+				result.add(now.replaceFirst(res));
+			}
+			else{
+				result.set(threadindex,now.replaceFirst(res));
+			}
+			return parse(result.get(threadindex));
 		}
+		result.remove(threadindex);
 		String[] cfin=code.split(" ");
         if (cfin.length != 0)
             return cfin[cfin.length-1];

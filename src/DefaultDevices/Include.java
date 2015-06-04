@@ -35,13 +35,14 @@ public class Include extends Device{
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
 		String lin="",cres="";
 		try{
-			BufferedReader read=new BufferedReader(new FileReader(arg[1]));
+			String current_directory = System.getProperty("user.dir");
+			BufferedReader read=new BufferedReader(new FileReader(current_directory+"/"+arg[1]));
 			while ((lin=read.readLine())!=null){
 				cres+=lin+" ";
 			}
 			read.close();
 		}
-		catch(Exception e){ e.printStackTrace(); }
+		catch(Exception e){ e.printStackTrace(); return "(print 'File not found\")"; }
 		return "(eval '"+cres+"\")";
 	}
 }

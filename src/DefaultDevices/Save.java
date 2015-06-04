@@ -62,7 +62,7 @@ public class Save extends Device{
 			}
 			read.close();
 		}
-		catch(Exception e){ e.printStackTrace(); return "(print 'Not saved\""; }
+		catch(Exception e){ e.printStackTrace(); return "(print 'Not saved\")"; }
 		return "(eval '"+cres+"\")";
 	}
 }

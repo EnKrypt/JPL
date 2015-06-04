@@ -46,6 +46,7 @@ class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 			System.out.println(param);
 		}
 		output.flush();
+		Thread.sleep(1000); //To prevent getting kicked from Excess Flood
 	}
 	
 	public String read()throws IOException{

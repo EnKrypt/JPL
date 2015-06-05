@@ -5,7 +5,7 @@ Java Portable Lisp
 **Portable Lisp 0 Specification**:  
 https://docs.google.com/document/d/1pnKDSDNnOU3ytw4FGgRkao8mfjwpyFvgKQMIJGtczVg/edit
 
-**Portable Lisp 1 Specification**:
+**Portable Lisp 1 Specification**:  
 https://docs.google.com/document/d/1-H65z1FZXUh7audpcpjtwOLy9hu5mheBfjob8s7GJxE/edit
 
 **Standard Devices in PL0**:  

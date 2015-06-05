@@ -73,12 +73,12 @@ public class Lisp{
 	};
 
 	public String parse(String code){
-		
+		/*
 		for (int i=0;i<result.size();i++){
 			System.out.print(i+": "+result.get(i)+" ");
 		}
 		System.out.print("\n");
-		
+		*/
         Pattern lisp;
         Matcher now;
         Pattern quo;
@@ -113,7 +113,7 @@ public class Lisp{
 			}
 			return parse(result.get(0));
 		}
-		System.out.println("Removing thread");
+		//System.out.println("Removing thread");
 		result.remove(0);
 		if (result.size()==0){
 			String[] cfin=code.split(" ");

@@ -47,7 +47,7 @@ class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 		}
 		output.flush();
 		try{
-			Thread.sleep(1000); //To prevent getting kicked from Excess Flood
+			Thread.sleep(1500); //To prevent getting kicked from Excess Flood
 		}
 		catch (InterruptedException ie) {ie.printStackTrace();}
 	}
@@ -76,7 +76,7 @@ class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 						return message=message.substring(command.length()+2).trim();
 					}
 				}
-				catch (Exception e){}
+				catch (Exception e){e.printStackTrace();}
 			}
 		}
 	}

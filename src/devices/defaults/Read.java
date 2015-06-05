@@ -42,14 +42,14 @@ public class Read extends Device{
 				try{
 					cres=hook.read();
 				}
-				catch(Exception e) {}
+				catch(Exception e) {e.printStackTrace();}
 			}
 			else{
 				try{
 					hook.write(cres);
 					cres=hook.read();
 				}
-				catch(Exception e) {}
+				catch(Exception e) {e.printStackTrace();}
 			}
 			return "'"+cres+"\"";
 		}
@@ -59,7 +59,7 @@ public class Read extends Device{
 				cres=hook.read();
 				cres=cres.substring(cres.lastIndexOf(":")+1);
 			}
-			catch(Exception e) {}
+			catch(Exception e) {e.printStackTrace();}
 			return "'"+cres+"\"";
 		}
 		return "";

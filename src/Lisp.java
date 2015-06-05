@@ -35,10 +35,10 @@ public class Lisp{
 	Matcher now;
 	Pattern quo;
 	Matcher nowa;
-	Map var=new HashMap();
-	Map mkdev=new HashMap();
-	ArrayList<String> result=new ArrayList<String>();
-	int threadindex=0;
+	public Map var=new HashMap();
+	public Map mkdev=new HashMap();
+	public ArrayList<String> result=new ArrayList<String>();
+	public int threadindex=0;
 	
 	public Lisp(Hook hk){
 		hook=hk;
@@ -69,10 +69,17 @@ public class Lisp{
 		new If(),
 		new Var(),
 		new Lambda(),
-		new Runlambda()
+		new Runlambda(),
+		new Threading()
 	};
 
 	public String parse(String code){
+		
+		for (int i=0;i<result.size();i++){
+			System.out.print(i+": "+result.get(i)+" ");
+		}
+		System.out.print("\n");
+		
         Pattern lisp;
         Matcher now;
         Pattern quo;
@@ -95,6 +102,7 @@ public class Lisp{
 			else{
 				result.set(threadindex,now.replaceFirst(res));
 			}
+			nextThread();
 			return parse(result.get(threadindex));
 		}
 		result.remove(threadindex);
@@ -173,4 +181,9 @@ public class Lisp{
             out.append(glue).append(s[x]);
         return out.toString();
     }
+	public void nextThread(){
+		threadindex+=1;
+		if (result.size()>=threadindex)
+			threadindex=0;
+	}
 }

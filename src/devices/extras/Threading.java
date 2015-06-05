@@ -17,13 +17,13 @@
 //   *         (C) James McClain 2011 .                                       *
 //   ************************************************************************** 
 
-package src.devices.defaults;
+package src.devices.extras;
 
 import java.util.*;
 
 import src.*;
 
-public class Thread extends Device{
+public class Threading extends Device{
 	
 	static String name="thread";
 	
@@ -32,6 +32,8 @@ public class Thread extends Device{
 	}
 	
 	public String exec(String arg[], Map var, Map mkdev, Hook hook, Lisp lisp){
-		
+		arg[0]="";
+		lisp.result.add(lisp.combine(arg," "));
+		return "";
 	}
 }

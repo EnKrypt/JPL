@@ -74,12 +74,12 @@ public class Lisp{
 	};
 
 	public String parse(String code){
-		
+		/*
 		for (int i=0;i<result.size();i++){
 			System.out.print(i+": "+result.get(i)+" ");
 		}
-		System.out.print("\n");
-		
+		System.out.print(threadindex+"\n");
+		*/
         Pattern lisp;
         Matcher now;
         Pattern quo;
@@ -183,7 +183,7 @@ public class Lisp{
     }
 	public void nextThread(){
 		threadindex+=1;
-		if (result.size()>=threadindex)
+		if (threadindex>=result.size())
 			threadindex=0;
 	}
 }

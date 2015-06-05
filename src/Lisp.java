@@ -74,12 +74,12 @@ public class Lisp{
 	};
 
 	public String parse(String code){
-		/*
+		
 		for (int i=0;i<result.size();i++){
 			System.out.print(i+": "+result.get(i)+" ");
 		}
 		System.out.print(threadindex+"\n");
-		*/
+		
         Pattern lisp;
         Matcher now;
         Pattern quo;
@@ -90,6 +90,7 @@ public class Lisp{
 		lisp=Pattern.compile("\\([^()]*\\)");
 		now=lisp.matcher(code);
 		while (now.find()){
+			int threadsize=result.size();
 			String m=now.group(0);
 			m=m.replace("(","");
 			m=m.replace(")","");
@@ -102,14 +103,27 @@ public class Lisp{
 			else{
 				result.set(threadindex,now.replaceFirst(res));
 			}
-			nextThread();
+			if (threadsize!=result.size()){
+				threadindex=result.size()-1;
+			}
+			else{
+				nextThread();
+			}
 			return parse(result.get(threadindex));
 		}
+		System.out.println("Removing thread "+threadindex);
 		result.remove(threadindex);
-		String[] cfin=code.split(" ");
-        if (cfin.length != 0)
-            return cfin[cfin.length-1];
-        return "";
+		threadindex-=1;
+		nextThread();
+		if (result.size()==0){
+			String[] cfin=code.split(" ");
+			if (cfin.length != 0)
+				return cfin[cfin.length-1];
+			return "";
+		}
+		else{
+			return parse(result.get(threadindex));
+		}
 	}
 	public String eval(String arg[]){
 		arg=requote(arg);

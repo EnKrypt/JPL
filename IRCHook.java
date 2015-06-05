@@ -73,7 +73,7 @@ class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 				}
 				try{
 					if (message.substring(1,command.length()+1).equalsIgnoreCase(command)){
-						return message=message.substring(command.length()+1).trim();
+						return message=message.substring(command.length()+2).trim();
 					}
 				}
 				catch (Exception e){}

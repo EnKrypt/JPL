@@ -1,9 +1,12 @@
-Java Portable Lisp 0
+Java Portable Lisp
 ==
-[![Build Status](https://travis-ci.org/EnKrypt/JPL0.svg)](https://travis-ci.org/EnKrypt/JPL0)
+[![Build Status](https://travis-ci.org/EnKrypt/JPL.svg)](https://travis-ci.org/EnKrypt/JPL)
 
-**Portable Lisp Alpha Specification**:  
+**Portable Lisp 0 Specification**:  
 https://docs.google.com/document/d/1pnKDSDNnOU3ytw4FGgRkao8mfjwpyFvgKQMIJGtczVg/edit
+
+**Portable Lisp 1 Specification**:
+https://docs.google.com/document/d/1-H65z1FZXUh7audpcpjtwOLy9hu5mheBfjob8s7GJxE/edit
 
 **Standard Devices in PL0**:  
 https://docs.google.com/document/d/10iZQ-L6S4k4P38m9rlO6fwcs8ItR_IYRdmZ6ZFIDb5E/edit
@@ -14,13 +17,13 @@ https://docs.google.com/document/d/1fgZcsHvRxh_J9P2Ry0lX28csjlpEUfEXcuIozbfos-8/
 ==
 ### How to use
 
-Two executable hooks have been bundled with the JPL0 Library.
+Two executable hooks have been bundled with the JPL Library.
 * An interpreter where you can directly run the parser on the command line
 * An IRC hook where you can make the program join an IRC network and communicate through it on a channel
 
 You can also build your own hook with relative ease. Take a look at `Hook.java` in `src/` to get an idea of the Hook template you need to stick to.
 
-*JPL0 has also been integrated into EBot (http://github.com/EnKrypt/EBot/) for added Bot features.*
+*JPL has also been integrated into EBot (http://github.com/EnKrypt/EBot/) for added Bot features.*
 
 ==
-NOTE : This version does not strictly follow the Pl0 standard for better efficiency and ease.
+NOTE : This version may not strictly follow the PL standard for better efficiency and ease.

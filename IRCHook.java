@@ -85,7 +85,7 @@ class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 		IRCHook hook=new IRCHook();
 		Lisp lisp=new Lisp(hook);
 		hook.output.write("NICK " + nick + "\r\n");
-        hook.output.write("USER " + "JPL0" + " \"\" \"\" :" + "PL0Bot" + "\r\n");
+        hook.output.write("USER " + "JPL" + " \"\" \"\" :" + "PL0Bot" + "\r\n");
 		hook.output.write("JOIN " + channel + "\r\n");
 		hook.output.flush();
 		System.out.println("Running");
@@ -96,6 +96,6 @@ class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 }
 
 /*
-This class of the project isn't strictly part of the JPL0 library.
+This class of the project isn't strictly part of the JPL library.
 It simply serves to provide the input and output interface through which the library is interacted.
 */

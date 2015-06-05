@@ -48,6 +48,6 @@ class InterpreterHook extends Hook{ //Acts as an interpreter via the console. Wi
 }
 
 /*
-This class of the project isn't strictly part of the JPL0 library.
+This class of the project isn't strictly part of the JPL library.
 It simply serves to provide the input and output interface through which the library is interacted.
 */

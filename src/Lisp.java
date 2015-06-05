@@ -38,7 +38,6 @@ public class Lisp{
 	public Map var=new HashMap();
 	public Map mkdev=new HashMap();
 	public ArrayList<String> result=new ArrayList<String>();
-	public int threadindex=0;
 	
 	public Lisp(Hook hk){
 		hook=hk;
@@ -78,7 +77,7 @@ public class Lisp{
 		for (int i=0;i<result.size();i++){
 			System.out.print(i+": "+result.get(i)+" ");
 		}
-		System.out.print(threadindex+"\n");
+		System.out.print("\n");
 		
         Pattern lisp;
         Matcher now;
@@ -90,7 +89,7 @@ public class Lisp{
 		lisp=Pattern.compile("\\([^()]*\\)");
 		now=lisp.matcher(code);
 		while (now.find()){
-			int threadsize=result.size();
+			int threadcount=result.size();
 			String m=now.group(0);
 			m=m.replace("(","");
 			m=m.replace(")","");
@@ -101,20 +100,21 @@ public class Lisp{
 				result.add(now.replaceFirst(res));
 			}
 			else{
-				result.set(threadindex,now.replaceFirst(res));
+				result.set(0,now.replaceFirst(res));
 			}
-			if (threadsize!=result.size()){
-				threadindex=result.size()-1;
+			if (result.size()!=threadcount){
+				String temp=result.get(0);
+				result.set(0,result.get(result.size()-1));
+				result.set(result.size()-1,temp);
 			}
 			else{
-				nextThread();
+				result.add(result.get(0));
+				result.remove(0);
 			}
-			return parse(result.get(threadindex));
+			return parse(result.get(0));
 		}
-		System.out.println("Removing thread "+threadindex);
-		result.remove(threadindex);
-		threadindex-=1;
-		nextThread();
+		System.out.println("Removing thread");
+		result.remove(0);
 		if (result.size()==0){
 			String[] cfin=code.split(" ");
 			if (cfin.length != 0)
@@ -122,7 +122,7 @@ public class Lisp{
 			return "";
 		}
 		else{
-			return parse(result.get(threadindex));
+			return parse(result.get(0));
 		}
 	}
 	public String eval(String arg[]){
@@ -195,9 +195,4 @@ public class Lisp{
             out.append(glue).append(s[x]);
         return out.toString();
     }
-	public void nextThread(){
-		threadindex+=1;
-		if (threadindex>=result.size())
-			threadindex=0;
-	}
 }

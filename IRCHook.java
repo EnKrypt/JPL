@@ -90,7 +90,12 @@ class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 		hook.output.flush();
 		System.out.println("Running");
 		while(true){
-			hook.write("Result: "+lisp.parse(hook.read())); //Hook the Lisp parser to the interpreter
+			try{
+				hook.write("Result: "+lisp.parse(hook.read())); //Hook the Lisp parser to the interpreter
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 	}
 }

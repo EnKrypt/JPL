@@ -26,7 +26,7 @@ class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 	
 	static String host="irc.jamezq.com"; //Test network
 	static String channel="#u413"; //Test channel
-	static String nick="PL0Bot"; //IRC Nickname
+	static String nick="PLBot"; //IRC Nickname
 	static String command="!pl"; //Command to trigger the bot to parse input
 	
 	boolean debug=false;

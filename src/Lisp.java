@@ -73,12 +73,12 @@ public class Lisp{
 	};
 
 	public String parse(String code){
-		/*
+		
 		for (int i=0;i<result.size();i++){
 			System.out.print(i+": "+result.get(i)+" ");
 		}
 		System.out.print("\n");
-		*/
+		
         Pattern lisp;
         Matcher now;
         Pattern quo;
@@ -96,24 +96,24 @@ public class Lisp{
             m=m.replaceAll(" +"," ");
 			String[] arg=m.split(" ");
 			String res=eval(arg);
-			if (result.size()==0){
+			if (result.size()==0||threadcount==0){
 				result.add(now.replaceFirst(res));
 			}
 			else{
 				result.set(0,now.replaceFirst(res));
-			}
-			if (result.size()!=threadcount){
-				String temp=result.get(0);
-				result.set(0,result.get(result.size()-1));
-				result.set(result.size()-1,temp);
-			}
-			else{
-				result.add(result.get(0));
-				result.remove(0);
+				if (result.size()!=threadcount){
+					String temp=result.get(0);
+					result.set(0,result.get(result.size()-1));
+					result.set(result.size()-1,temp);
+				}
+				else{
+					result.add(result.get(0));
+					result.remove(0);
+				}
 			}
 			return parse(result.get(0));
 		}
-		//System.out.println("Removing thread");
+		System.out.println("Removing thread");
 		result.remove(0);
 		if (result.size()==0){
 			String[] cfin=code.split(" ");

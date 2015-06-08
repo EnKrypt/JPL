@@ -35,6 +35,10 @@ class InterpreterHook extends Hook{ //Acts as an interpreter via the console. Wi
 		return input.readLine();
 	}
 	
+	public String asyncread()throws IOException{
+		return "(read)";
+	}
+	
 	public static void main(String args[])throws IOException{
 		InterpreterHook hook=new InterpreterHook();
 		Lisp lisp=new Lisp(hook);

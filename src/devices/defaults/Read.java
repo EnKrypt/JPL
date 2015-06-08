@@ -40,14 +40,14 @@ public class Read extends Device{
 			}
 			if (cres.equals(" ")){
 				try{
-					cres=hook.read();
+					cres=hook.asyncread();
 				}
 				catch(Exception e) {e.printStackTrace();}
 			}
 			else{
 				try{
 					hook.write(cres);
-					cres=hook.read();
+					cres=hook.asyncread();
 				}
 				catch(Exception e) {e.printStackTrace();}
 			}
@@ -56,7 +56,7 @@ public class Read extends Device{
 		else if (arg.length==1){
 			String cres="";
 			try{
-				cres=hook.read();
+				cres=hook.asyncread();
 				cres=cres.substring(cres.lastIndexOf(":")+1);
 			}
 			catch(Exception e) {e.printStackTrace();}

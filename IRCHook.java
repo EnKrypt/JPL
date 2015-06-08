@@ -81,6 +81,10 @@ class IRCHook extends Hook{ //Acts as an interpreter via an IRC protocol.
 		}
 	}
 	
+	public String asyncread()throws IOException{
+		return "(read)";
+	}
+	
 	public static void main(String args[])throws IOException{
 		IRCHook hook=new IRCHook();
 		Lisp lisp=new Lisp(hook);
